@@ -1,0 +1,93 @@
+body {
+	font-family: "DejaVu Sans Condensed", "Helvetica", sans-serif;
+	background-color: white;
+	color: black;
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header {
+	background-color: #FF4D4D;
+}
+
+header img, nav {
+	background-color: #661E1E;
+	color: white;
+}
+
+@keyframes menuanim {
+    from {width: 0%;}
+    to {width: 100%;}
+}
+nav {
+	border-top: 1px solid black;
+	border-bottom: 3px solid black;
+	white-space: nowrap;
+	overflow: hidden;
+	animation-name: menuanim;
+	animation-duration: 4s;
+}
+
+nav a, nav a:visited, nav a:active {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	margin-right: 24px;
+}
+
+header {
+	padding: 24px;
+}
+
+header img {
+	border: 2px solid black;
+	min-width: 96px;
+	min-height: 96px;
+	display: inline;
+	text-align: center;
+	vertical-align: middle;
+}
+
+header h1 {
+	display: inline;
+	margin: 24px;
+}
+
+article {
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+article+article {
+	border-top: 1px solid gray;
+}
+
+article a {
+	text-decoration: none;
+	color: black;
+	font-style: italic
+}
+
+article a:hover {
+	font-weight: bold;
+}
+
+article a:before {
+	content: "[";
+}
+
+article a:after {
+	content: "]";
+}
+
+form {
+	text-align: center;
+}
+
+form textarea {
+	min-width: 400px;
+	min-height: 200px;
+}
+
+
