@@ -1,0 +1,74 @@
+body {
+	font-family: sans-serif;
+}
+
+
+header a[rel=author] {
+	display: block;
+	text-align: center;
+	color: black;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+h1 { 
+	text-align: center;
+	font-size: 26px;
+}
+
+h1, h2, h3, header a[rel=author] {
+	text-shadow: 0.5px 0.5px 1px gray;
+}
+
+section {
+	margin: 24px;
+	border: 1px solid gray;
+	background: #ddd;
+	color: black;
+	border-radius: 12px;
+	box-shadow: 1px 1px 2px black;
+}
+
+section {
+	text-align: left;
+	padding: 48px;
+}
+
+section p, section table {
+	margin-left: 24px;
+}
+
+figure {
+	float: right;
+	text-align: center;
+}
+
+figure img {
+	border: 1px solid black;
+	border-radius: 4px;
+}
+figure figcaption {
+	font-size: 80%;
+	font-style: italic;
+}
+
+section table {
+	border-collapse: collapse;
+}
+
+section table th {
+	border: 1px solid gray;
+	font-size: 120%;
+	font-style: bold;
+	text-align: left;
+	padding: 8px;
+}
+
+section table td {
+	border: 1px solid gray;
+	padding: 4px 8px;
+	background-color: #eee;
+	color: black;
+}
+

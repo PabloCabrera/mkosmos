@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="utf-8" />
+	<title>Wireframe</title>
+	<link rel="stylesheet" type="text/css" href="wireframe.css" />
+	<script src="wireframe.js"></script>
+</head>
+
+<body>
+
+	<header>
+		<img src="img/mail-send.png" alt="logo">
+		<h1>Sitio web del juego</h1>
+	</header>
+
+	<nav>
+		<ul>
+			<li onclick="showTab('Jugar')">Jugar</li>
+			<li onclick="showTab('Noticias')">Noticias</li>
+			<li onclick="showTab('ComoJugar')">Como jugar</li>
+			<li onclick="showTab('Desarrolladores')">Desarrolladores</li>
+			<li onclick="showTab('MiPerfil')">Mi Perfil</li>
+		</ul>
+	</nav>
+
+	<section id="sectionJugar">
+		<div id="scroller"> Empezar a jugar!</div>
+		<p>Disfruta de un juego emocionante</p>
+		<p>Disfruta de un juego emocionante</p>
+		<p>Disfruta de un juego emocionante</p>
+		<p>Disfruta de un juego emocionante</p>
+	</section>
+
+	<section id="sectionNoticias">
+		<h2>Noticias</h2>
+		<article>
+			<h3>Nuevas características</h3>
+			<p>Tenemos el agrado de comunicar las impresionantes...<br />
+			Tenemos el agrado de comunicar las impresionantes...<br />
+			Tenemos el agrado de comunicar las impresionantes...<br />
+			Tenemos el agrado de comunicar las impresionantes...</p>
+		</article>
+		<article>
+			<h3>Inscripción abierta a campeonato</h3>
+			<p>El próximo 29 de febrero se realizará un campeonato...<br />
+			El próximo 29 de febrero se realizará un campeonato...<br />
+			El próximo 29 de febrero se realizará un campeonato...<br />
+			El próximo 29 de febrero se realizará un campeonato...<br />
+			El próximo 29 de febrero se realizará un campeonato...<br />
+			El próximo 29 de febrero se realizará un campeonato...</p>
+		</article>
+	</section>
+
+	<section id="sectionComoJugar">
+		<sidebar>
+			<h2>Tabla de contenidos</h2>
+			<ul>
+			<li><a href="#ayudaIntroduccion">Introducción</a></li>
+			<li><a href="#ayudaObjetivo">Objetivo del juego</a></li>
+			<li><a href="#ayudaControles">Controles</a></li>
+			<li><a href="#ayudaPuntajes">Puntajes</a></li>
+			<li><a href="#ayudaPersonajes">Personajes</a></li>
+			<li><a href="#ayudaEnemigos">Enemigos</a></li>
+			<li><a href="#ayudaItems">Items</a></li>
+			<li><a href="#ayudaPerfil">Perfil</a></li>
+			</ul>
+		</sidebar>
+
+			<h3 id="ayudaIntroduccion">Introducción</h3>
+			<p>Este juego es genial<br />
+			Este juego es genial<br />
+			Este juego es genial<br />
+			Este juego es genial<br />
+			Este juego es genial<br />
+			Este juego es genial</p>
+
+
+			<h3 id="ayudaObjetivo">Objetivo del juego</h3>
+			<p>El objetivo del juego consiste en...<br />
+			El objetivo del juego consiste en ...<br />
+
+			<h3 id="ayudaControles">Controles</h3>
+			<p> W: Adelante<br />
+			S: Retroceder<br />
+			A: Izquierda<br />
+			D: Derecha<br />
+			Espacio: Atacar<br />
+			 W: Adelante<br />
+			S: Retroceder<br />
+			A: Izquierda<br />
+			D: Derecha<br />
+			Espacio: Atacar</p>
+
+			<h3 id="ayudaPuntajes">Puntajes</h3>
+			<p> El sistema de puntos asociados a perfil permite....<br/ >
+			Matar: +2 Puntos<br>
+			Morir: -1 Punto<br />
+			Ganar partida: +40 puntos</p>
+
+			<h3 id="ayudaPersonajes">Personajes</h3>
+			<p>El bueno<br />
+			El malo<br />
+			El feo</p>
+
+			<h3 id="ayudaEnemigos">Enemigos</h3>
+			<p>El cabeza de chancho aparece en el calabozo...<br />
+			El ojos de pescado te ataca en el arroyo...<br />
+			La bruja sin escoba no puede volar...</p>
+
+			<h3 id="ayudaItems">Items</h3>
+			<p>La llave abre la puerta...
+			La manzana te da energía...<br />
+			El reloj sirve para...</p>
+
+			<h3 id="ayudaPerfil">Perfil</h3>
+			<p>En tu perfil vas a ver tu puntaje...<br />
+			Podés comprar items con puntos acumulados...<br />
+			</p>
+
+	</section>
+
+	<section id="sectionDesarrolladores">
+			<h3>Cómo extender el juego</h3>
+		<sidebar>
+			<h2>Tabla de contenidos</h2>
+			<ul>
+			<li><a href="#">Introducción a la API</a></li>
+			<li><a href="#">GameObject</a></li>
+			<li><a href="#">GameCharacter</a></li>
+			<li><a href="#">TerrainSprite</a></li>
+			<li><a href="#">PlayerSprite</a></li>
+			<li><a href="#">EnemyPath</a></li>
+			<li><a href="#">GameServer</a></li>
+			<li><a href="#">GameException</a></li>
+			</ul>
+		</sidebar>
+			<p>La API del juego permite extenderlo....</p>
+	</section>
+
+	<section id="sectionMiPerfil">
+			<h3>Mi perfil</h3>
+			<img src="img/list-add-user.png" alt="Foto de perfil" />
+			<p><strong>Nombre de usuario:</strong> Laustin</p>
+			<p><strong>E-Mail:</strong> laustin32@unlu.edu.ar</p>
+			<p><strong>Puntaje acumulado:</strong> 845</p>
+			<button>Invitar amigo</button>
+	</section>
+</body>

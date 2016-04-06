@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="utf-8" />
+	<title>Propuestas de juegos</title>
+	<link rel="stylesheet" type="text/css" href="propuestas.css" />
+</head>
+
+<body>
+	<header>
+		<h1>PROPUESTAS DE JUEGOS</h1>
+		<a rel="author" href="mailto:binchmod777@gmail.com">Pablo Cabrera Andrade</a>
+	</header>
+
+	<section>
+
+	<h2>First Person Shooter</h2>
+
+	<h3>Descripción</h3>
+
+	<p>First Person Shooter Pseudo3D al estilo Wolfenstein.</p>
+
+	<p>Podrá jugarse en modo aventura (tanto singleplayer como multiplayer cooperativo) y deathmatch.</p>
+
+	<p>En los modos de aventura uno o varios jugadores recorreran diferentes escenarios laberínticos, intentando encontrar la salida.
+	En el camino se enfrentarán contra monstruos, a los que podrán atacar con diferentes armas.
+	Estas armas estaran en puntos específicos del laberinto, así como sus municiones.
+	En ciertas ocasiones deberán buscar llaves para abrir ciertas puertas, lo que les permitira continuar avanzando en la aventura.</p>
+
+	<p>En modo deathmatch, varios jugadores se enfrentaran entre ellos.
+	Todas las puertas estaran abiertas (no sera necesario utilizar llaves), y no habrá monstruos.
+	Cada jugador sumará 2 puntos cuando asesina a otro y perderá 1 cuando es asesinado.
+	Después de un lapso de tiempo definido, ganará aquel jugador que tenga más puntos.</p>
+
+	<figure>
+		<img src="img/Wolfenstein_3D.png" alt="Wolfenstein 3D">
+		<figcaption>Wolfenstein 3D, juego gráficamente similar al propuesto</figcaption>
+	</figure>
+
+	<h3>Sobre la implementación:</h3>
+
+	<p>El rendering se realizará sobre un elemento canvas SVG.</p>
+	<p>Las paredes de laberinto se verán como un conjunto de trapecios con lados paralelos verticales, de tamaño, posición y angulos dependientes de la ubicación del personaje.</p>
+	<p>Todos los personajes, monstruos, armas y objetos del juego serán sprites (no serán tridimensionales).</p>
+	<p>Toda la lógica del juego será implementada en el navegador.</p>
+	<p>Para los modos multijugador uno de los clientes tendrá la función de coordinador.</p>
+	<p>Este será el que haga el procesamiento necesario para el comportamiento de los monstruos.</p>
+
+	<h3>Estimación de tiempo de desarrollo:</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Fecha</th>
+				<th>Funcionalidad</th>
+			</tr>
+			<tr>
+				<td>2016-04-12</td>
+				<td>Sitio web del juego</td>
+			</tr>
+			<tr>
+				<td>2016-04-19</td>
+				<td>Nucleo del juego. Movimiento de personaje y renderer.</td>
+			</tr>
+			<tr>
+				<td>2016-04-26</td>
+				<td>Diseño y programación de monstruos y armas. </td>
+			</tr>
+			<tr>
+				<td>2016-05-03</td>
+				<td>Programación de items. Diseño de escenarios.</td>
+			</tr>
+			<tr>
+				<td>2016-05-10</td>
+				<td>Implementación de multijugador en "pantalla partida".</td>
+			</tr>
+			<tr>
+				<td>2016-05-17</td>
+				<td>Historial de partidas jugadas y puntajes asociados a perfil en redes sociales. Ranking de mejores jugadores.</td>
+			</tr>
+			<tr>
+				<td>2016-05-24</td>
+				<td>Implementación de multijugador entre varios clientes.</td>
+			</tr>
+		</thead>
+	</table>
+
+	</section>
+
+	<section>
+
+	<h2>Mundo virtual dinamico</h2>
+
+	<p>En el mundo habitarán personajes controlados por jugadores, otros automáticos, y objetos inanimados.
+	El mundo será bidimensional, presentado en vista superior.
+	En cada punto del mundo habrá un tipo específico de terreno, el cual puede ser pasto, tierra, arena, agua, piedra, pavimento, etc.
+	El terreno cambiará todo el tiempo como consecuencia de las actividades que se desarrollen en el mundo.
+	Puesto que el mundo virtual será on-line, todos los jugadores verán estos cambios en tiempo real.</p>
+
+	<p>Sobre esta base se construirán minijuegos que crearan y destruirán personajes y objetos en el mundo virtual y modificaran el terreno.
+	Estos minijuegos se desarrollarán en el mismo mundo, es decir que personajes de juegos distintos compartiran el mismo espacio.
+	Teniendo en cuenta que el mundo no será estatico, estos minijuegos deben poder adaptarse a las diferentes configuraciones del terreno.</p>
+
+	<p>Personajes de distintos minijuegos podrán interactuar, ya sea intencionalmente o no.  
+	Por ejemplo, una rana que esta cruzando la calle debera esquivar autos que estan corriendo una carrera.<br />
+	La rana es un jugador jugando al minijuego "cruzar la calle"<br />
+	Los autos son jugadores jugando al minijuego "ganar la carrera"</p>
+
+	<p>Los usuarios registrados acumularan puntos que les habilitaran a jugar otros minijuegos.
+	Los minijuegos de nivel superior son aquellos que pueden modificar radicalmente el terreno (construir calles, plantar árboles, hacer explotar cosas, etc).</p>
+
+	<figure>
+		<img src="img/alttp.png" alt="Legend of Zelda">
+		<figcaption>Legend of Zelda, juego graficamente similar al propuesto</figcaption>
+	</figure>
+
+	<h3>Sobre la implementación:</h3>
+	<p>El mundo virtual será manejado por un software "el nucleo" alojado en un servidor central.
+	El nucleo se encargará de coordinar y sincronizar el estado del terreno y la ubicación de los personajes y objetos.</p>
+	<p>Los minijuegos serán módulos que se comunicarán con el servidor central mediante una API.
+	Esta API permitira además publicar definiciones de objetos y personajes para que sean visibles a los jugadores de otros minijuegos.
+	Esta arquitectura permitirá agregar y quitar minijuegos sin detener el mundo.</p>
+
+	<p>Del lado del cliente, se utilizará una librería común para todos los minijuegos, y otra específica de cada minijuego.</p>
+
+	<h3>Estimación de tiempo de desarrollo:</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Fecha</th>
+				<th>Funcionalidad</th>
+			</tr>
+			<tr>
+				<td>2016-04-12</td>
+				<td>Sitio web del juego</td>
+			</tr>
+			<tr>
+				<td>2016-04-19</td>
+				<td>Librería javascript que permita dibujar, y modificar el terreno.</td>
+			</tr>
+			<tr>
+				<td>2016-04-26</td>
+				<td>Librería javascript que permita dibujar y animar personajes.</td>
+			</tr>
+			<tr>
+				<td>2016-05-03</td>
+				<td>Implementación de dos minijuegos sencillos de un sólo jugador.</td>
+			</tr>
+			<tr>
+				<td>2016-05-10</td>
+				<td>Interacción entre los dos minijuegos en tiempo real (en la misma instancia de navegador).</td>
+			</tr>
+			<tr>
+				<td>2016-05-17</td>
+				<td>Perfil de usuario con puntajes asociado a cuentas en redes sociales.</td>
+			</tr>
+			<tr>
+				<td>2016-05-24</td>
+				<td>Sincronización de terreno, personajes y objetos mediante servidor central.</td>
+			</tr>
+			<tr>
+				<td>2016-12-14</td>
+				<td>Implementación de otros minijuegos</td>
+			</tr>
+		</thead>
+	</table>
+
+	</section>
+
+</body>

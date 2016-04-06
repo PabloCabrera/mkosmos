@@ -1,0 +1,61 @@
+body {
+	background: #099;
+	font-family: sans-serif;
+}
+
+header {
+	background: black;
+	text-align: center;
+	color: white;
+	padding: 12px;
+	min-height: 128px;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+header img {
+	float: left;
+}
+
+nav ul li {
+	background: black;
+	color: white;
+	display: inline;
+	border: 2px solid white;
+	font-size: 20px;
+	padding: 8px;
+	
+}
+
+section {
+	background: #222;
+	border: 1px solid black;
+	color: white;
+	min-height: 400px;
+	padding: 32px;
+}
+
+section sidebar {
+	float: right;
+}
+
+section sidebar a{
+	color: cyan;
+
+}
+
+#scroller {
+	height: 80px;
+	background: #222;
+	background-image: url('img/screenshot.jpg');
+	background-position: center;
+	color: white;
+	padding-right: 48px;
+	padding-top: 200px;
+	text-align: right;
+	margin: 24px;
+	border-radius: 24px;
+	font-size: 24px;
+}
