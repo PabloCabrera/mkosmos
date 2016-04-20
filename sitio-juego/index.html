@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="utf-8" />
+	<title>μ-κosmos</title>
+	<link rel="stylesheet" type="text/css" href="index.css" />
+	<script src="index.js"></script>
+</head>
+
+<body>
+
+	<header>
+		<svg width="128" height="128">
+			<rect width="112" height="112" fill="#5e0" stroke-width="2" stroke="black" />
+			<circle cx="20" cy="80" r="24" stroke="black" stroke-width="2" fill="red" />
+			<polygon points="44,0 112,0, 112,113 " fill="yellow" />
+			<polygon points="54,0 112,0, 112,93 " fill="blue" />
+		</svg>
+		<h1>μ-κosmos</h1>
+	</header>
+
+	<nav>
+		<ul>
+			<li onclick="showTab('Jugar')">Jugar</li>
+			<li onclick="showTab('Noticias')">Noticias</li>
+			<li onclick="showTab('ComoJugar')">Como jugar</li>
+			<li onclick="showTab('Desarrolladores')">Desarrolladores</li>
+			<li onclick="showTab('MiPerfil')">Mi Perfil</li>
+		</ul>
+	</nav>
+
+	<section id="sectionJugar">
+		<div id="scroller"> Empezar a jugar!</div>
+
+		<p>Un mundo totalmente dinámico con cientos de minijuegos desarrollandose al mismo tiempo.</p>
+		<p>Un pájaro, un ciclista, un granjero, y mil personajes más coexisten en un espacio común, cada uno con sus objetivos particulares, pero siempre interactuando con los demás y con el mundo que habitán.</p>
+	<p>El terreno esta en constante cambio como consecuencia de la actividad de los habitantes.  Un bosque puede convertirse en desierto si se talan sus arboles, un desierto puede convertirse en ciudad si se construyen edificios, y una ciudad puede desaparecer tras una explosión termonuclear.</p>
+	<p>Lo que vaya a suceder es impredecible, desde el mas pequeño insecto hasta el mas poderoso ejercito tienen influencia en el mundo de μ-κosmos.</p>
+	</section>
+
+	<section id="sectionNoticias">
+		<h2>Noticias</h2>
+		<article>
+			<h3>El proyecto μ-κosmos ha comenzado</h3>
+			<time>20 de Marzo de 2016</time>
+			<p>Tenemos el agrado de anunciar que el proyecto μ-κosmos ha iniciado.</p>
+		</article>
+	</section>
+
+	<section id="sectionComoJugar">
+		<sidebar>
+			<h2>Tabla de contenidos</h2>
+			<ul>
+			<li><a href="#ayudaIntroduccion">Introducción</a></li>
+			<li><a href="#ayudaObjetivo">Objetivo del juego</a></li>
+			<li><a href="#ayudaControles">Controles</a></li>
+			<li><a href="#ayudaPuntajes">Puntajes</a></li>
+			<li><a href="#ayudaPersonajes">Personajes</a></li>
+			<li><a href="#ayudaEnemigos">Enemigos</a></li>
+			<li><a href="#ayudaItems">Items</a></li>
+			<li><a href="#ayudaPerfil">Perfil</a></li>
+			</ul>
+		</sidebar>
+
+			<h3 id="ayudaIntroduccion">Introducción</h3>
+
+
+			<h3 id="ayudaObjetivo">Objetivo del juego</h3>
+
+			<h3 id="ayudaControles">Controles</h3>
+
+			<h3 id="ayudaPuntajes">Puntajes</h3>
+
+			<h3 id="ayudaPersonajes">Personajes</h3>
+
+			<h3 id="ayudaEnemigos">Enemigos</h3>
+
+			<h3 id="ayudaItems">Items</h3>
+
+			<h3 id="ayudaPerfil">Perfil</h3>
+
+	</section>
+
+	<section id="sectionDesarrolladores">
+			<h3>Cómo extender el juego</h3>
+		<sidebar>
+			<h2>Tabla de contenidos</h2>
+			<ul>
+			<li><a href="#">Introducción a la API</a></li>
+			<li><a href="#">GameObject</a></li>
+			<li><a href="#">GameCharacter</a></li>
+			<li><a href="#">TerrainSprite</a></li>
+			<li><a href="#">PlayerSprite</a></li>
+			<li><a href="#">EnemyPath</a></li>
+			<li><a href="#">GameServer</a></li>
+			<li><a href="#">GameException</a></li>
+			</ul>
+		</sidebar>
+			<p>La API del juego permite extenderlo....</p>
+	</section>
+
+	<section id="sectionMiPerfil">
+			<h3>Mi perfil</h3>
+			<p><strong>Nombre de usuario:</strong></p>
+			<p><strong>E-Mail:</strong></p>
+			<p><strong>Puntaje acumulado:</strong></p>
+			<button>Invitar amigo</button>
+	</section>
+</body>

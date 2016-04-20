@@ -1,0 +1,82 @@
+body {
+	background: #46f;
+	font-family: sans-serif;
+}
+
+header {
+	background: #060;
+	border: 2px solid white;
+	text-align: center;
+	color: white;
+	text-shadow: 0px 0px 2px black;
+	padding: 12px;
+	min-height: 128px;
+	border-radius: 12px;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+header svg {
+	float: left;
+}
+
+header svg polygon {
+	stroke-width: 3;
+	stroke: red;
+}
+
+nav ul {
+	padding-left: 0px;
+	margin-bottom: 24px;
+}
+
+nav ul li {
+	background: #060;
+	color: white;
+	display: inline;
+	border: 2px solid white;
+	text-shadow: 0px 0px 2px black;
+	font-size: 20px;
+	padding: 8px;
+	border-radius: 6px;
+	cursor: pointer;
+	box-shadow: 0px 0px 3px #000;
+}
+
+nav ul li:hover {
+	box-shadow: 0px 0px 3px #8f8;
+}
+
+section {
+	background: white;
+	color: black;
+	min-height: 400px;
+	padding: 32px;
+	border-radius: 12px;
+	font-size: 18px;
+}
+
+section sidebar {
+	float: right;
+}
+
+section sidebar a{
+	color: #22c;
+
+}
+
+#scroller {
+	height: 80px;
+	background: #222;
+	background-image: url('img/screenshot.jpg');
+	background-position: center;
+	color: white;
+	padding-right: 48px;
+	padding-top: 200px;
+	text-align: right;
+	margin: 24px;
+	border-radius: 24px;
+	font-size: 24px;
+}
