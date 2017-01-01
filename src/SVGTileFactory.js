@@ -1,7 +1,7 @@
-TileFactory = {
+SVGTileFactory = {
 }
 
-TileFactory.getTile = function (surface) {
+SVGTileFactory.getTile = function (surface) {
 	var tile = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 	tile.setAttributeNS (null, "width", 1);
 	tile.setAttributeNS (null, "height", 1);
@@ -10,7 +10,7 @@ TileFactory.getTile = function (surface) {
 	return tile;
 }
 
-TileFactory.getTileColor = function (surface) {
+SVGTileFactory.getTileColor = function (surface) {
 	var color = 'black';
 	if (SurfaceColor[surface] != undefined) {
 		color = SurfaceColor[surface];

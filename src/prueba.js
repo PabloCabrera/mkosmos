@@ -4,8 +4,9 @@ window.onload = function() {
 	area.setSurfaceRectPosition([52, 34], [10, 12], Surface.GRASS)
 	area.setSurfaceCirclePosition([25, 20], 19, Surface.ICE)
 	area.setSurfaceCirclePosition([9, 40], 6, Surface.VOID)
-	renderer = new AreaRenderer (area);
-	renderer.setViewSize([8, 8]);
-	renderer.setRenderSize([600, 600]);
+	renderer = new SVGAreaRenderer (area);
+	renderer.setViewSize([12, 9]);
+	renderer.setRenderSize([800, 600]);
 	renderer.render (document.body);
 }
+
