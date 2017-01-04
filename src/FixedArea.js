@@ -28,7 +28,23 @@ FixedArea.prototype.getSurfaceAtPosition = function (position) {
 
 /* Obtener el tipo de superficie en las coordenadas dadas */
 FixedArea.prototype.getSurfaceAt = function (x, y) {
+	if (x<0 || x>this.width || y<0 || y>this.height) {
+		return null;
+	}
+
 	return this.map[(y*this.height)+x];
+}
+
+/* Obtener el tipo de superficie en un rectangulo */
+FixedArea.prototype.getSurfaceRect = function (left, top, right, bottom) {
+	var region = [];
+	for (var x = left; x <= right; x++) {
+		region[x] = [];
+		for (var y = top; y <= bottom; y++) {
+			region[x][y] = this.map[(y*this.height)+x];
+		}
+	}
+	return region;
 }
 
 /* Establecer el tipo de superficie en un punto especifico */
