@@ -18,6 +18,9 @@ AbstractArea.prototype.setSurfaceAtPosition = function (position, surface) {}
 /* Obtener el tipo de superficie en un rectangulo */
 AbstractArea.prototype.getSurfaceRect = function (left, top, right, bottom) {}
 
+/* Obtener el tipo de superficie en un rectangulo */
+AbstractArea.prototype.execOnSurfaceRect = function (left, top, right, bottom, handler, args) {}
+
 /* Establecer el tipo de superficie en un punto especifico */
 AbstractArea.prototype.setSurfaceAt = function (x, y, surface) {}
 
