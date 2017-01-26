@@ -37,21 +37,32 @@ CanvasAreaRenderer.prototype.adjust = function () {
 
 /* Actualizar imagen */
 CanvasAreaRenderer.prototype.refresh = function () {
-	var surfaceRect = this.area.getSurfaceRect (
+	var self = this;
+	
+	/* Callback para dibujar asincronicamente */
+	var asyncDraw = function (rect) {
+		debug_rect = rect;
+		for (var x = rect.left; x <= rect.right; x++) {
+			for (var y = rect.top; y <= rect.bottom; y++) {
+				self.drawTile (rect[x-rect.left][y-rect.top], x, y);
+			}
+		}
+	}
+	
+	this.area.execOnSurfaceRect (
 		Math.floor(this.viewOrigin[0]),
 		Math.floor(this.viewOrigin[1]),
 		Math.ceil(this.viewOrigin[0] + this.viewSize[0]),
-		Math.ceil(this.viewOrigin[1] + this.viewSize[1])
+		Math.ceil(this.viewOrigin[1] + this.viewSize[1]),
+		asyncDraw
 	);
-	this.drawSurfaceRect (surfaceRect);
 }
-
 
 /* Dibujar un area rectangular */
 CanvasAreaRenderer.prototype.drawSurfaceRect = function (rect) {
 	for (var x = rect.left; x <= rect.right; x++) {
 		for (var y = rect.top; y <= rect.bottom; y++) {
-			this.drawTile (rect[x][y], x, y);
+			this.drawTile (rect[x-left][y-top], x, y);
 		}
 	}
 }

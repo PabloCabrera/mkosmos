@@ -44,9 +44,9 @@ FixedArea.prototype.getSurfaceRect = function (left, top, right, bottom) {
 	region.bottom = Math.min(bottom, this.height-1);
 
 	for (var x = left; x <= right; x++) {
-		region[x] = [];
+		region[x-left] = [];
 		for (var y = top; y <= bottom; y++) {
-			region[x][y] = this.map[(y*this.height)+x];
+			region[x-left][y-top] = this.map[(y*this.height)+x];
 		}
 	}
 	return region;
@@ -55,7 +55,7 @@ FixedArea.prototype.getSurfaceRect = function (left, top, right, bottom) {
 /* Obtener el tipo de superficie en un rectangulo */
 FixedArea.prototype.execOnSurfaceRect = function (left, top, right, bottom, handler) {
 	var region = this.getSurfaceRect (left, top, right, bottom);
-	handler (region, args);
+	handler (region);
 }
 
 /* Establecer el tipo de superficie en un punto especifico */
