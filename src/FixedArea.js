@@ -53,7 +53,7 @@ FixedArea.prototype.getSurfaceRect = function (left, top, right, bottom) {
 }
 
 /* Obtener el tipo de superficie en un rectangulo */
-FixedArea.prototype.execOnSurfaceRect = function (left, top, right, bottom, handler, args) {
+FixedArea.prototype.execOnSurfaceRect = function (left, top, right, bottom, handler) {
 	var region = this.getSurfaceRect (left, top, right, bottom);
 	handler (region, args);
 }
@@ -71,15 +71,15 @@ FixedArea.prototype.setSurfaceAt = function (x, y, surface) {
 
 /* Establecer el tipo de superficie en un area rectangular */
 FixedArea.prototype.setSurfaceRectPosition = function (position, size, surface) {
-	this.setSurfaceRect(position[0], position[1], size[0], size[1], surface);
+	this.setSurfaceRect(position[0], position[1], position[0]+size[0], position[1]+size[1], surface);
 }
 
 /* Establecer el tipo de superficie en un area rectangular */
-FixedArea.prototype.setSurfaceRect = function (x, y, width, height, surface) {
+FixedArea.prototype.setSurfaceRect = function (left, top, right, bottom, surface) {
 	var mapIndex;
-	for (var yCount = 0; yCount < height; yCount++) {
-		for (var xCount = 0; xCount< width; xCount++) {
-			mapIndex = (this.height * (y+yCount)) + (x+xCount);
+	for (var y = top; y <= bottom; y++) {
+		for (var x = left; x <= right; x++) {
+			mapIndex = (this.height * y + x);
 			this.map[mapIndex] = surface;
 		}
 	}
