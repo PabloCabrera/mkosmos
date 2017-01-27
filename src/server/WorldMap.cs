@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 public class WorldMap
 {
@@ -12,6 +13,12 @@ public class WorldMap
 		this.height = height;
 		this.map = new byte[width, height];
 	}
+
+	public WorldMap (string fileName)
+	{
+		this.LoadMapFromFile (fileName);
+	}
+
 
 	public byte GetSurfaceAt (uint x, uint y)
 	{
@@ -93,5 +100,103 @@ public class WorldMap
 			}
 		}
 		return true;
+	}
+
+	public bool LoadMapFromFile (string fileName)
+	{
+		try
+		{
+			FileStream stream = File.Open (fileName, FileMode.Open, FileAccess.Read);
+			this.width = this.GetUIntFromFileStream (stream);
+			this.height = this.GetUIntFromFileStream (stream);
+			this.map = this.GetMapFromFileStream (stream, this.width, this.height);
+			stream.Close();
+			
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private uint GetUIntFromFileStream (FileStream stream)
+	{
+		byte[] readedBytes = new byte[4];
+		stream.Read (readedBytes, 0, 4);
+		if (BitConverter.IsLittleEndian)
+		{
+			Array.Reverse (readedBytes);
+		}
+		return BitConverter.ToUInt32(readedBytes, 0);
+	}
+
+	private byte[,] GetMapFromFileStream (FileStream stream, uint width, uint height)
+	{
+		byte[] unidimensionalMap = this.ReadNBytes (stream, this.width*this.height);
+		byte[,] bidimensionalMap = new byte[width, height];
+
+		for (uint x=0; x<width; x++)
+		{
+			for (uint y=0; y<height; y++)
+			{
+				this.map [x, y] = unidimensionalMap [ x*width + y ];
+			}
+		}
+
+		return bidimensionalMap;
+	}
+
+	private byte[] ReadNBytes (FileStream stream, uint n)
+	{	
+		byte[] bytes = new byte[n];
+		int left = (int) n;
+		int offset = 0;
+		int readed = 0;
+
+		while (left > 0) {
+			readed = stream.Read (bytes, offset, left);
+			offset += readed;
+			left = ((int) n) - offset;
+		}
+
+		return bytes;
+	}
+
+	public bool SaveMapToFile (string fileName)
+	{
+		try
+		{
+			FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.Write);
+			this.PutUIntToFileStream (stream, this.width);
+			this.PutUIntToFileStream (stream, this.height);
+			this.PutMapToFileStream (stream, this.map, this.width, this.height);
+			stream.Close ();
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public void PutUIntToFileStream (FileStream stream, uint value)
+	{
+		byte[] bytes = BitConverter.GetBytes (value);
+		stream.Write (bytes, 0, 4);
+	}
+
+	public void PutMapToFileStream (FileStream stream, byte[,] map, uint width, uint height)
+	{
+		byte[] unidimensionalMap = new byte [width*height];
+
+		for (uint x=0; x<width; x++)
+		{
+			for (uint y=0; y<height; y++)
+			{
+				unidimensionalMap [ x*width + y ] = map [x, y];
+			}
+		}
+		stream.Write (unidimensionalMap, 0, (int) (width*height));
 	}
 }

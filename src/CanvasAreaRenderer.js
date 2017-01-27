@@ -44,7 +44,7 @@ CanvasAreaRenderer.prototype.refresh = function () {
 		debug_rect = rect;
 		for (var x = rect.left; x <= rect.right; x++) {
 			for (var y = rect.top; y <= rect.bottom; y++) {
-				self.drawTile (rect[x-rect.left][y-rect.top], x, y);
+				self.drawTile (rect.data[x-rect.left][y-rect.top], x, y);
 			}
 		}
 	}

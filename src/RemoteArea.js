@@ -33,7 +33,7 @@ RemoteArea.prototype.execOnSurfaceRect = function (left, top, right, bottom, han
 			top: top,
 			right: right,
 			bottom: bottom
-		}
+		},
 		success: handler
 	});
 }
@@ -47,7 +47,7 @@ RemoteArea.prototype.setSurfaceAt = function (x, y, surface) {
 			x: x,
 			y: y
 		}
-	}
+	});
 }
 
 /* Establecer el tipo de superficie en un area rectangular */
@@ -56,7 +56,7 @@ RemoteArea.prototype.setSurfaceRectPosition = function (position, size, surface)
 }
 
 /* Establecer el tipo de superficie en un area rectangular */
-RemoteArea.prototype.setSurfaceRect = function (left, top, width, height, surface) {
+RemoteArea.prototype.setSurfaceRect = function (left, top, right, bottom, surface) {
 	$.ajax (this.uri+"/SetSurfaceRect", {
 		method: "POST",
 		dataType: "json",
@@ -71,13 +71,13 @@ RemoteArea.prototype.setSurfaceRect = function (left, top, width, height, surfac
 }
 
 /* Establecer el tipo de superficie en un area circular */
-RemoteArea.prototype.setSurfaceCirclePosition = function (positon, radius, surface) {	
+RemoteArea.prototype.setSurfaceCirclePosition = function (position, radius, surface) {	
 	this.setSurfaceCircle (position[0], position[1], radius, surface);
 }
 
 /* Establecer el tipo de superficie en un area circular */
 RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
-	$.ajax (this.uri+"/SetSurfaceRect", {
+	$.ajax (this.uri+"/SetSurfaceCircle", {
 		method: "POST",
 		dataType: "json",
 		data: {
