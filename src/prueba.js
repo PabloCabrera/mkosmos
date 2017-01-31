@@ -1,5 +1,5 @@
 window.onload = function() {
-	area = new RemoteArea ("http://localhost:8000");
+	area = new RemoteArea ("ws://localhost:8000");
 	/*
 	area.setSurfaceRectPosition([2, 3], [4, 6], Surface.SAND)
 	area.setSurfaceRectPosition([3, 4], [2, 4], Surface.GRASS)
@@ -14,6 +14,6 @@ window.onload = function() {
 	renderer = new CanvasAreaRenderer (area);
 	renderer.setViewSize([12, 12]);
 	renderer.setRenderSize([600, 600]);
-	renderer.render (document.body);
+	window.setTimeout (function(){renderer.render (document.body)}, 1000);
 }
 
