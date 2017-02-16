@@ -13,9 +13,12 @@ class Controller implements MessageComponentInterface {
 		$this-> messageHandlers = [
 			"surface" => [
 				"get" => "onMsgSurfaceGet",
-				"set" => "onMsgSurfaceSet"
+				"set" => "onMsgSurfaceSet",
+				"subscribe" => "onMsgSurfaceSuscribe"
 			]
 		];
+
+		echo "Servidor iniciado\n";
 	}
 
 	private function onMsgSurfaceGet ($conn, $msg) {
@@ -35,6 +38,24 @@ class Controller implements MessageComponentInterface {
 	}
 
 	private function onMsgSurfaceSet ($conn, $msg) {
+		echo "Se ha recibido un mensaje setSurface\n";
+		if (isset ($msg-> shape)) {
+			switch ($msg-> shape) {
+				case "rectangle":
+					$this-> worldServer-> setSurfaceRect ($msg->left, $msg->top, $msg->right, $msg->bottom, $msg->surface);
+					break;
+				case "circle":
+					$this-> worldServer-> setSurfaceCircle ($msg->x, $msg->y, $msg->radius, $msg->surface);
+					break;
+			}
+		} else {
+			$this-> worldServer-> setSurfaceAt ($msg->x, $msg->y, $msg->surface);
+		}
+	}
+
+	private function onMsgSurfaceSuscribe($conn, $msg) {
+		$this-> worldServer-> subscribeToSurface ($msg-> left, $msg-> top, $msg-> right, $msg-> bottom, $conn);
+		
 	}
 
 	public function onOpen (ConnectionInterface $conn) {
@@ -57,10 +78,12 @@ class Controller implements MessageComponentInterface {
 
 	public function onClose (ConnectionInterface $conn) {
 		echo "Se ha desconectado un usuario\n";
+		$this-> worldServer-> unsubscribeToSurface ($conn);
 	}
 
-	public function onError(ConnectionInterface $conn, \Exception $e) {
+	public function onError (ConnectionInterface $conn, \Exception $e) {
 		echo "Ha ocurrido un error: {$e->getMessage()}\n";
+		$this-> worldServer-> unsubscribeToSurface ($conn);
 		$conn->close();
 	}
 

@@ -1,19 +1,24 @@
 window.onload = function() {
-	area = new RemoteArea ("ws://localhost:8000");
-	/*
-	area.setSurfaceRectPosition([2, 3], [4, 6], Surface.SAND)
-	area.setSurfaceRectPosition([3, 4], [2, 4], Surface.GRASS)
-	area.setSurfaceRectPosition([52, 34], [10, 12], Surface.GRASS)
-	area.setSurfaceCirclePosition([25, 20], 19, Surface.SAND)
-	area.setSurfaceCirclePosition([25, 20], 17, Surface.GRASS)
-	area.setSurfaceCirclePosition([11, 22], 3, Surface.SAND)
-	area.setSurfaceCirclePosition([20, 6], 4, Surface.SAND)
-	area.setSurfaceCirclePosition([19, 4], 3, Surface.WATER)
-	area.setSurfaceCirclePosition([9, 40], 6, Surface.ICE)
-	*/
+	area = new RemoteArea ("ws://10.12.13.72:8000");
 	renderer = new CanvasAreaRenderer (area);
-	renderer.setViewSize([12, 12]);
+	renderer.setViewSize([128, 128]);
 	renderer.setRenderSize([600, 600]);
 	window.setTimeout (function(){renderer.render (document.body)}, 1000);
 }
+
+generateCircle = function () {
+	var x = Math.floor (Math.random()*area.width);
+	var y = Math.floor (Math.random()*area.height);
+	var radius = Math.floor (Math.random ()*6);
+	area.setSurfaceCircle (x, y, radius, Surface.SAND);
+}
+
+generateRect = function () {
+	var left = Math.floor (Math.random()*area.width);
+	var top = Math.floor (Math.random()*area.height);
+	var right = left+4;
+	var bottom = top+4;
+	area.setSurfaceRect (left, top, right, bottom, Surface.SAND);
+}
+
 

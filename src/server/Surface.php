@@ -1,0 +1,23 @@
+<?php
+
+const SURFACE_WATER = "\x00";
+const SURFACE_SWALLOW = 6;
+const SURFACE_MUD = 16;
+const SURFACE_QUICKSAND = 20;
+const SURFACE_GRASS = "\x20";
+const SURFACE_EARTH = 48;
+const SURFACE_SAND = "\x31";
+const SURFACE_RED_EARTH = 50;
+const SURFACE_ROCK = 64;
+const SURFACE_MOUNTAIN = 65;
+const SURFACE_BUILDING = 96;
+const SURFACE_COBBLE = 97;
+const SURFACE_BRICK = 98;
+const SURFACE_ICE = 128;
+const SURFACE_SNOW = 129;
+const SURFACE_METAL = 144;
+const SURFACE_GOLD = 145;
+const SURFACE_AIR = 224;
+const SURFACE_CLOUD = 225;
+
+const SURFACE_VOID = 255;

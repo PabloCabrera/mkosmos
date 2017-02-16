@@ -4,21 +4,35 @@
 
 /* size: [width, height] */
 RemoteArea = function (uri) {
-	console.log ("RemoteArea constructor");
+	this.uri = uri;
+	this.map = null;
+	this.width = null;
+	this.height = null;
+	
 	var self = this;
-
 	var onready = function () {
+		self.subscribeToMap ();
 		self.requestMapStatus ();
 	}
 
-	this.uri = uri;
-	this.map = null;
 	this.connectToServer (onready);
+}
+
+/* Suscribirse para recibir las actualizaciones en el mapa */
+RemoteArea.prototype.subscribeToMap = function () {
+	msg = {
+		entity: "surface",
+		action: "subscribe",
+		left: 0,
+		top: 0,
+		right: this.width,
+		bottom: this.height
+	}
+	this.sendMessage (msg);
 }
 
 /* Solicitar el estado actual del mapa al servidor */
 RemoteArea.prototype.requestMapStatus = function () {
-	console.log ("requestMapStatus");
 	msg = {
 		entity: "surface",
 		action: "get"
@@ -29,7 +43,6 @@ RemoteArea.prototype.requestMapStatus = function () {
 
 /* Conectarse al servidor */
 RemoteArea.prototype.connectToServer = function (onready) {
-	console.log ("connectToServer");
 	var self = this;
 	var onmessage = function (msg) {
 		self.recieveMessage (msg);
@@ -39,9 +52,10 @@ RemoteArea.prototype.connectToServer = function (onready) {
 	this.websocket.onmessage = onmessage;
 }
 
+debug_recieveMessage = [];
 /* Procesar un mensaje recibido del servidor */
 RemoteArea.prototype.recieveMessage = function (msg) {
-	console.log ("recieveMessage");
+	debug_recieveMessage.push (msg);
 	var msgData = JSON.parse (msg.data);
 	if (msgData.entity != undefined) {
 		switch (msgData.entity) {
@@ -55,7 +69,6 @@ RemoteArea.prototype.recieveMessage = function (msg) {
 
 /* Actualizar el mapa a partir de un mensaje recibido del servidor */
 RemoteArea.prototype.updateMapSurface = function (msg) {
-	console.log ("updateMapSurface");
 	if (!this.map) {
 		this.initMap (msg);
 	} else if (msg.left != undefined) {
@@ -63,11 +76,11 @@ RemoteArea.prototype.updateMapSurface = function (msg) {
 	} else {
 		this.setSurfaceAt (msg.x, msg.y, msg.surface);
 	}
+	renderer.refresh (); // FIXME: renderer es variable global
 }
 
 /* Inicializar el mapa a partir de un mensaje recibido del servidor */
 RemoteArea.prototype.initMap = function (msg) {
-	console.log ("initMap");
 	this.width = msg.right+1;
 	this.height = msg.bottom+1;
 	this.map = Array ((msg.right+1)*(msg.bottom+1))
@@ -156,7 +169,7 @@ RemoteArea.prototype.setSurfaceRectPosition = function (position, size, surface)
 RemoteArea.prototype.setSurfaceRect = function (left, top, right, bottom, surface) {
 	var msg = {
 		entity: "surface",
-		action: "replace",
+		action: "set",
 		shape: "rectangle",
 		left: left,
 		top: top,
@@ -176,7 +189,7 @@ RemoteArea.prototype.setSurfaceCirclePosition = function (position, radius, surf
 RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
 	var msg = {
 		entity: "surface",
-		action: "replace",
+		action: "set",
 		shape: "circle",
 		x: x,
 		y: y,
@@ -188,7 +201,6 @@ RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
 
 /* Enviar un mensaje al servidor */
 RemoteArea.prototype.sendMessage = function (msg) {
-	console.log ("sendMessage");
 	if (this.websocket && this.websocket.readyState==1) {
 		this.websocket.send(JSON.stringify(msg));
 	} else {
