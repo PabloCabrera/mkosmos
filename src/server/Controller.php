@@ -15,6 +15,10 @@ class Controller implements MessageComponentInterface {
 				"get" => "onMsgSurfaceGet",
 				"set" => "onMsgSurfaceSet",
 				"subscribe" => "onMsgSurfaceSuscribe"
+			],
+			"object" => [
+				"create" => "onMsgObjectCreate",
+				"subscribe" => "onMsgObjectSuscribe"
 			]
 		];
 
@@ -55,9 +59,16 @@ class Controller implements MessageComponentInterface {
 
 	private function onMsgSurfaceSuscribe($conn, $msg) {
 		$this-> worldServer-> subscribeToSurface ($msg-> left, $msg-> top, $msg-> right, $msg-> bottom, $conn);
-		
 	}
 
+	private function onMsgObjectCreate ($conn, $msg) {
+		$this-> worldServer-> createObject ($msg, $conn);
+	}
+
+	private function onMsgObjectSuscribe($conn, $msg) {
+		$this-> worldServer-> subscribeToObjects ($msg-> left, $msg-> top, $msg-> right, $msg-> bottom, $conn);
+	}
+	
 	public function onOpen (ConnectionInterface $conn) {
 		echo "Se ha conectado un usuario\n";
 	}

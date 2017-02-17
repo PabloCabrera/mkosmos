@@ -1,6 +1,6 @@
 <?php
 
-class SurfaceSubscription {
+class Subscription {
 	public $left;
 	public $top;
 	public $right;

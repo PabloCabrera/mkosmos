@@ -21,4 +21,10 @@ generateRect = function () {
 	area.setSurfaceRect (left, top, right, bottom, Surface.SAND);
 }
 
+createObject = function () {
+	var x = Math.floor (Math.random()*area.width);
+	var y = Math.floor (Math.random()*area.height);
+	area.createObject(x, y);
+}
+
 

@@ -1,4 +1,4 @@
-/* Interface RemoteArea:
+/* Clase RemoteArea:
  * Area que sera cargada desde un servidor remoto
  */
 
@@ -28,6 +28,9 @@ RemoteArea.prototype.subscribeToMap = function () {
 		right: 128,
 		bottom: 128
 	}
+	this.sendMessage (msg);
+
+	msg.entity="object";
 	this.sendMessage (msg);
 }
 
@@ -63,6 +66,8 @@ RemoteArea.prototype.recieveMessage = function (msg) {
 				console.log ("recieveMessage: surface");
 				this.updateMapSurface (msgData);
 				break;
+			case "object":
+				this.updateObjects (msgData);
 		}
 	}
 }
@@ -196,6 +201,26 @@ RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
 		radius: radius,
 		surface: surface
 	}
+	this.sendMessage (msg);
+}
+
+RemoteArea.prototype.updateObjects = function (msg) {
+	console.log ("Objeto con id "+msg.id+" en x:"+msg.x+", y:"+msg.y);
+}
+RemoteArea.prototype.createObject = function (x, y) {
+	var req_id = Date.now()*10000 + Math.floor(Math.random()*10000);
+	var msg = {
+		entity: "object",
+		action: "create",
+		request_id: req_id,
+		radius: 1,
+		x: x,
+		y: y,
+		speed_x: 0,
+		speed_y: 0
+	
+	}
+
 	this.sendMessage (msg);
 }
 
