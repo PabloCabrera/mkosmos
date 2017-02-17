@@ -8,6 +8,7 @@ RemoteArea = function (uri) {
 	this.map = null;
 	this.width = null;
 	this.height = null;
+	this.objects = [];
 	
 	var self = this;
 	var onready = function () {
@@ -63,7 +64,6 @@ RemoteArea.prototype.recieveMessage = function (msg) {
 	if (msgData.entity != undefined) {
 		switch (msgData.entity) {
 			case "surface":
-				console.log ("recieveMessage: surface");
 				this.updateMapSurface (msgData);
 				break;
 			case "object":
@@ -209,12 +209,42 @@ RemoteArea.prototype.updateObjects = function (msg) {
 		switch (msg.action) {
 			case "destroy":
 				console.log ("Objeto con id "+msg.id+" ha sido destruido");
+				this.removeObject (msg.id);
 				break;
 		}
 	} else {
-		console.log ("Objeto con id "+msg.id+" en x:"+msg.x+", y:"+msg.y);
+		this.updateObject (msg);
+
+		if (this.map != null) {
+			renderer.refresh();  // FIXME renderer es variable global
+		}
 	}
 }
+
+RemoteArea.prototype.updateObject = function (obj) {
+	if (this.objects[obj.id] == undefined) {
+		this.insertObject (obj);
+	} else {
+		var cached = this.objects[obj.id];
+		cached.x = obj.x;
+		cached.y = obj.y;
+		cached.speed_x = obj.speed_x;
+		cached.speed_y = obj.speed_y;
+		cached.radius = obj.radius;
+		cached.state = obj.state;
+	}
+}
+
+RemoteArea.prototype.insertObject = function (obj) {
+	this.objects.push (obj);
+}
+
+RemoteArea.prototype.removeObject = function (id) {
+	if (this.objects[id] != undefined) {
+		this.objects.splice (id, 1);
+	}
+}
+
 RemoteArea.prototype.createObject = function (x, y) {
 	var req_id = Date.now()*10000 + Math.floor(Math.random()*10000);
 	var msg = {

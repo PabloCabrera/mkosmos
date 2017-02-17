@@ -136,7 +136,9 @@ class WorldServer {
 	public function subscribeToObjects ($left, $top, $right, $bottom, $conn) {
 		echo "Se ha subscripto un cliente para recibir cambios en objetos.\n";
 		$this-> unsubscribeToObjects ($conn);
-		$this-> objectSubscriptors[] = new Subscription ($left, $top, $right, $bottom, $conn);
+		$subscription = new Subscription ($left, $top, $right, $bottom, $conn);
+		$this-> objectSubscriptors[] = $subscription;
+		$this-> sendCurrentObjects ($subscription);
 	}
 
 	public function unsubscribeToObjects ($conn) {
@@ -147,6 +149,20 @@ class WorldServer {
 				array_slice ($this-> objectSubscriptors, $i, 1);
 			}
 		}
+	}
+
+	private function sendCurrentObjects ($subscriptor) {
+		foreach ($this-> objects as $object) {
+			if (WorldServer::objectInsideBounds ($object, $subscriptor)) {
+				$json = json_encode ($object);
+				$subscriptor-> conn-> send ($json);
+			}
+		}
+	}
+
+	public static function objectInsideBounds ($object, $rect) {
+		return true;
+		//FIXME 
 	}
 
 	public function createObject ($msg, $conn) {
@@ -203,11 +219,6 @@ class WorldServer {
 				$subscriptor-> send ($json);
 			}
 		}
-	}
-
-	public static function objectInsideBounds ($object, $rect) {
-		return true;
-		//FIXME 
 	}
 
 	public function save ($filename) {

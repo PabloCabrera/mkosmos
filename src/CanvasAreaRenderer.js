@@ -56,6 +56,8 @@ CanvasAreaRenderer.prototype.refresh = function () {
 		Math.ceil(this.viewOrigin[1] + this.viewSize[1]),
 		asyncDraw
 	);
+
+	this.drawObjects();
 }
 
 /* Dibujar un area rectangular */
@@ -74,6 +76,39 @@ CanvasAreaRenderer.prototype.drawTile = function (surface, x, y) {
 		this.canvasContext.fillStyle = SVGTileFactory.getTileColor (surface);
 		this.canvasContext.fillRect (pos.x, pos.y, this.tileScale[0], this.tileScale[1]);
 	}
+	
+}
+
+/* Dibujar objetos visibles */
+CanvasAreaRenderer.prototype.drawObjects = function () {
+	console.log("drawObjects()");
+	var self = this;
+	this.area.objects.forEach (function (object) {
+		if (
+			(object.x+object.radius >= self.viewOrigin[0]) &&
+			(object.x-object.radius <= self.viewOrigin[0]+self.viewSize[0]) &&
+			(object.y+object.radius >= self.viewOrigin[1]) &&
+			(object.y-object.radius <= self.viewOrigin[1]+self.viewSize[1])
+		) {
+			self.drawObject (object);
+		}
+	});
+	
+}
+
+/* Dibujar un objeto */
+CanvasAreaRenderer.prototype.drawObject = function (object) {
+	console.log ("dibujar objeto");
+	var drawX = (object.x - this.viewOrigin[0]) * this.tileScale[0];
+	var drawY = (object.y - this.viewOrigin[1]) * this.tileScale[1];
+	var radius = object.radius * this.tileScale[0];
+	this.canvasContext.beginPath();
+	this.canvasContext.arc(drawX, drawY, radius, 0, 6.28319);
+	this.canvasContext.fillStyle = 'red';
+	this.canvasContext.fill();
+	this.canvasContext.closePath();
+	
+	
 	
 }
 
