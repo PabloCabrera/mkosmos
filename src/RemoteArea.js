@@ -25,8 +25,8 @@ RemoteArea.prototype.subscribeToMap = function () {
 		action: "subscribe",
 		left: 0,
 		top: 0,
-		right: this.width,
-		bottom: this.height 
+		right: 128,
+		bottom: 128
 	}
 	this.sendMessage (msg);
 }
