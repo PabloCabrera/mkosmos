@@ -205,7 +205,15 @@ RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
 }
 
 RemoteArea.prototype.updateObjects = function (msg) {
-	console.log ("Objeto con id "+msg.id+" en x:"+msg.x+", y:"+msg.y);
+	if (msg.action != undefined) {
+		switch (msg.action) {
+			case "destroy":
+				console.log ("Objeto con id "+msg.id+" ha sido destruido");
+				break;
+		}
+	} else {
+		console.log ("Objeto con id "+msg.id+" en x:"+msg.x+", y:"+msg.y);
+	}
 }
 RemoteArea.prototype.createObject = function (x, y) {
 	var req_id = Date.now()*10000 + Math.floor(Math.random()*10000);

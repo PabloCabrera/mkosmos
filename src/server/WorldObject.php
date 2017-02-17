@@ -13,7 +13,6 @@ class WorldObject {
 	private $owner;
 	public $current_sprite;
 	public $attribs;
-	public $last_update;
 
 	private static $object_last_id = 0;
 	

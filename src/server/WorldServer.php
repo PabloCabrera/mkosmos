@@ -186,7 +186,7 @@ class WorldServer {
 	}
 
 	public function removeObjectsByOwner ($conn) {
-		$ownedObjects = $this-> objectsByOwner-> getOffset ($conn);
+		$ownedObjects = $this-> objectsByOwner-> offsetGet ($conn);
 		foreach ($ownedObjects as $object) {
 			$this-> objects-> offsetUnset ($object);
 			$this-> notifyObjectDestruction ($object);
@@ -195,12 +195,12 @@ class WorldServer {
 	}
 
 	public function notifyObjectDestruction ($object) {
-		$msg = new DestroyObject ($object);
+		$msg = new DestroyObjectMessage ($object);
 		$json = json_encode ($msg);
 
 		foreach ($this-> objectSubscriptors as $subscriptor) {
 			if (WorldServer::objectInsideBounds ($object, $subscriptor)) {
-				$this-> subscriptor-> send ($json);
+				$subscriptor-> send ($json);
 			}
 		}
 	}

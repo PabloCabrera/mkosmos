@@ -89,7 +89,9 @@ class Controller implements MessageComponentInterface {
 
 	public function onClose (ConnectionInterface $conn) {
 		echo "Se ha desconectado un usuario\n";
+		$this-> worldServer-> unsubscribeToObjects ($conn);
 		$this-> worldServer-> unsubscribeToSurface ($conn);
+		$this-> worldServer-> removeObjectsByOwner ($conn);
 	}
 
 	public function onError (ConnectionInterface $conn, \Exception $e) {
