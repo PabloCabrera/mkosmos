@@ -26,7 +26,7 @@ RemoteArea.prototype.subscribeToMap = function () {
 		left: 0,
 		top: 0,
 		right: this.width,
-		bottom: this.height
+		bottom: this.height 
 	}
 	this.sendMessage (msg);
 }
@@ -110,7 +110,7 @@ RemoteArea.prototype.getSurfaceAt = function (x, y) {
 		return null;
 	}
 
-	return this.map[(y*this.height)+x];
+	return this.map[(x*this.width)+y];
 }
 
 /* Establecer el tipo de superficie en un punto especifico */
@@ -131,7 +131,7 @@ RemoteArea.prototype.getSurfaceRect = function (left, top, right, bottom) {
 	for (var x = left; x <= right; x++) {
 		region.data[x-left] = [];
 		for (var y = top; y <= bottom; y++) {
-			region.data[x-left][y-top] = this.map[(y*this.height)+x];
+			region.data[x-left][y-top] = this.map[(x*this.width)+y];
 		}
 	}
 	return region;

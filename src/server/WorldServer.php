@@ -7,8 +7,8 @@ class WorldServer {
 	public $map;
 	public $width;
 	public $height;
-	public $surfaceSubscriptors = [];
-	public $objectSubscriptors = [];
+	public $surfaceSubscriptors = array();
+	public $objectSubscriptors = array();
 
 	public static function loadFile ($filename) {
 		$worldserver = new WorldServer (1, 1);
@@ -31,9 +31,9 @@ class WorldServer {
 	}
 
 	public function getSurfaceRect ($left, $top, $right, $bottom) {
-		$data = [];
+		$data = array();
 		for ($x=$left; $x<=$right; $x++) {
-			$data[] = $this-> stringToByteArray (substr ($this->map, ($x * $this->width) + $left, 1+$right-$left));
+			$data[] = $this-> stringToByteArray (substr ($this->map, ($x * $this->width) + $top, 1+$bottom-$top));
 		}
 		return new SurfaceRect ($left, $top, $right, $bottom, $data);
 	}
@@ -70,11 +70,10 @@ class WorldServer {
 			for ($yt = $y-$yLimit; $yt <= ($y+$yLimit); $yt++) {
 				$this-> map [(int) (($xt* $this-> width) + $yt)] = $surface;
 			}
-
-			//$updatedRect = $this-> getSurfaceRect ($x-$radius, $y-$radius, $x+$radius, $y+$radius);
-			$updatedRect = $this-> getSurfaceRect (0,0,128,128);
-			$this-> notifySurfaceChangeToSubscribers ($updatedRect);
 		}
+
+		$updatedRect = $this-> getSurfaceRect (($x-$radius), ($y-$radius), ($x+$radius), ($y+$radius));
+		$this-> notifySurfaceChangeToSubscribers ($updatedRect);
 	}
 
 	public function subscribeToSurface ($left, $top, $right, $bottom, $conn) {
@@ -108,7 +107,23 @@ class WorldServer {
 	}
 
 	private static function rectsIntersect ($rect1, $rect2) {
-		 return true;
+		
+		if ($rect1->left <= $rect2->left) {
+			$leftMost = $rect1;
+			$rightMost = $rect2;
+		} else {
+			$leftMost = $rect2;
+			$rightMost = $rect1;
+		}
+
+		if ($rect1->top <= $rect2->top) {
+			$upperMost = $rect1;
+			$lowerMost = $rect2;
+		} else {
+			$upperMost = $rect2;
+			$lowerMost = $rect1;
+		}
+		return ($rightMost->left <= $leftMost->right) && ($lowerMost->top <= $upperMost->bottom);
 	}
 
 	public function save ($filename) {
