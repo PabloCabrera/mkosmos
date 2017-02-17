@@ -12,7 +12,6 @@ var hideElement = function (id) {
 var tabs = [
 	"sectionJugar",
 	"sectionNoticias",
-	"sectionComoJugar",
 	"sectionDesarrolladores",
 	"sectionMiPerfil"
 ];

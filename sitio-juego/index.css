@@ -18,6 +18,11 @@ h1 {
 	font-size: 48px;
 }
 
+header img {
+	float: left;
+	max-height: 128px;
+	border: 1px solid white;
+}
 header svg {
 	float: left;
 }
