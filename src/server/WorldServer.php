@@ -4,6 +4,7 @@ require_once "SurfaceRect.php";
 require_once "Subscription.php";
 require_once "WorldObject.php";
 require_once "DestroyObjectMessage.php";
+require_once "ObjectControl.php";
 
 class WorldServer {
 	public $map;
@@ -178,6 +179,7 @@ class WorldServer {
 			$this-> objectsByOwner-> attach ($conn, $ownedObjects);
 		}
 		$this-> notifyObjectCreation ($object);
+		$this-> giveObjectControl ($object, $msg-> request_id, $conn);
 
 		echo "Objeto creado.\n";
 		echo " Cantidad de objetos: ".count ($this->objects)."\n";
@@ -192,6 +194,12 @@ class WorldServer {
 				$subscriptor-> send ($json);
 			}
 		}
+	}
+
+	private function giveObjectControl ($object, $req_id, $conn) {
+		$msg = new ObjectControl ($object-> id, $req_id, $conn);
+		$json = json_encode ($msg);
+		$conn-> send ($json);
 	}
 
 	public function removeObject ($object, $conn) {

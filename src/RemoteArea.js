@@ -9,6 +9,9 @@ RemoteArea = function (uri) {
 	this.width = null;
 	this.height = null;
 	this.objects = [];
+	this.requestCallbacks = [];
+	this.ownObjects = [];
+	this.lastRequestId = 0;
 	
 	var self = this;
 	var onready = function () {
@@ -68,6 +71,7 @@ RemoteArea.prototype.recieveMessage = function (msg) {
 				break;
 			case "object":
 				this.updateObjects (msgData);
+				break;
 		}
 	}
 }
@@ -205,18 +209,22 @@ RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
 }
 
 RemoteArea.prototype.updateObjects = function (msg) {
-	if (msg.action != undefined) {
-		switch (msg.action) {
-			case "destroy":
-				console.log ("Objeto con id "+msg.id+" ha sido destruido");
-				this.removeObject (msg.id);
-				break;
-		}
-	} else {
+	if (msg.action == undefined) {
 		this.updateObject (msg);
 
 		if (this.map != null) {
 			renderer.refresh();  // FIXME renderer es variable global
+		}
+	} else {
+		switch (msg.action) {
+			case "grant control":
+				console.log ("Se ha recibido el control sobre el objeto con id "+msg.object_id);
+				this.takeObjectControl (msg);
+				break;
+			case "destroy":
+				console.log ("Objeto con id "+msg.id+" ha sido destruido");
+				this.removeObject (msg.id);
+				break;
 		}
 	}
 }
@@ -235,18 +243,43 @@ RemoteArea.prototype.updateObject = function (obj) {
 	}
 }
 
+RemoteArea.prototype.takeObjectControl = function (msg) {
+	var object = this.objects [msg.object_id];
+	if (object != undefined) {
+		this.ownObjects [msg.object_id] = object;
+		
+		var callback = this.requestCallbacks [msg.request_id];
+		if (callback) {
+			callback (object)
+		}
+
+		if (callback != undefined) {
+			this.requestCallbacks.splice (msg.request_id, 1);
+		}
+
+	} else {
+		console.log ("Error: se ha recibido el control sobre un objeto desconocido (id: "+msg.id+")");
+	}
+}
+
 RemoteArea.prototype.insertObject = function (obj) {
-	this.objects.push (obj);
+	this.objects[obj.id] = obj;
 }
 
 RemoteArea.prototype.removeObject = function (id) {
 	if (this.objects[id] != undefined) {
 		this.objects.splice (id, 1);
 	}
+	if (this.ownObjects[id] != undefined) {
+		this.ownObjects.splice (id, 1);
+	}
 }
 
-RemoteArea.prototype.createObject = function (x, y) {
-	var req_id = Date.now()*10000 + Math.floor(Math.random()*10000);
+/* Crear un objeto. Se llamara al callback cuando se haya creado correctamente */
+RemoteArea.prototype.createObject = function (x, y, callback) {
+	var req_id = ++this.lastRequestId;
+	this.requestCallbacks[req_id] = callback;
+
 	var msg = {
 		entity: "object",
 		action: "create",
