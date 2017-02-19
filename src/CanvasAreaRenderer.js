@@ -6,23 +6,51 @@ CanvasAreaRenderer = function (area) {
 	this.tileScale = [300/16, 300/16];
 	this.drawingCanvas = null;
 	this.canvasContext = null;
+	this.mustExit = false;
 }
 
 /* Establecer un nivel de zoom */
 CanvasAreaRenderer.prototype.setZoomLevel = function (zoomLevel) {
 	this.setViewSize ([20/zoomLevel, (20/zoomLevel)*(this.renderSize[1]/this.renderSize[0])]);
 	this.adjust();
-	this.refresh();
+	//this.refresh();
 }
 
+/* Iniciar el dibujado continuo */
+CanvasAreaRenderer.prototype.startRenderLoop = function (maxFps) {
+	this.lastStep = Date.now ();
+	this.stepGap = 1000/maxFps;
+	this.renderStep()
+}
+
+CanvasAreaRenderer.prototype.renderStep = function () {
+	var beforeRender = Date.now ();
+	area.recalcObjectPositions (beforeRender);
+	this.refresh();
+	var afterRender = Date.now ();
+	var renderTime = afterRender - beforeRender;
+	var wait = this.stepGap - renderTime;
+	if (wait < 1) {
+		wait = 1;
+	}
+	var self = this;
+	window.setTimeout (function () {
+		if (!self.mustExit) {
+			self.renderStep();
+		}
+	}, wait);
+}
 
 /* Crear elemento canvas y poner en container */
-CanvasAreaRenderer.prototype.render = function (container) {
+CanvasAreaRenderer.prototype.render = function (container, maxFps) {
 	this.drawingCanvas = document.createElement("canvas");
 	this.canvasContext = this.drawingCanvas.getContext ("2d");
 	this.adjust();
-	this.refresh();
 	container.appendChild (this.drawingCanvas);
+	if (maxFps == undefined) {
+		maxFps = 60;
+	}
+	this.startRenderLoop (maxFps);
 }
 
 /* Ajustar posicion y tamanio */
@@ -81,7 +109,6 @@ CanvasAreaRenderer.prototype.drawTile = function (surface, x, y) {
 
 /* Dibujar objetos visibles */
 CanvasAreaRenderer.prototype.drawObjects = function () {
-	console.log("drawObjects()");
 	var self = this;
 	this.area.objects.forEach (function (object) {
 		if (
@@ -98,7 +125,6 @@ CanvasAreaRenderer.prototype.drawObjects = function () {
 
 /* Dibujar un objeto */
 CanvasAreaRenderer.prototype.drawObject = function (object) {
-	console.log ("dibujar objeto");
 	var drawX = (object.x - this.viewOrigin[0]) * this.tileScale[0];
 	var drawY = (object.y - this.viewOrigin[1]) * this.tileScale[1];
 	var radius = object.radius * this.tileScale[0];
@@ -107,9 +133,6 @@ CanvasAreaRenderer.prototype.drawObject = function (object) {
 	this.canvasContext.fillStyle = 'red';
 	this.canvasContext.fill();
 	this.canvasContext.closePath();
-	
-	
-	
 }
 
 /* Traducir las coordenadas del mapa a las coordenadas del canvas */
@@ -134,7 +157,7 @@ CanvasAreaRenderer.prototype.goTo = function (x, y) {
 	this.viewOrigin[0] = x;
 	this.viewOrigin[1] = y;
 	this.adjust();
-	this.refresh();
+	//this.refresh();
 }
 
 /* Moverse a una ubicacion relativa  */
@@ -142,7 +165,7 @@ CanvasAreaRenderer.prototype.move = function (x, y) {
 	this.viewOrigin[0] += x;
 	this.viewOrigin[1] += y;
 	this.adjust();
-	this.refresh();
+	//this.refresh();
 }
 
 /* Establecer la esquina superior izquierda de la vista en el area

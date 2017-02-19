@@ -247,7 +247,8 @@ RemoteArea.prototype.takeObjectControl = function (msg) {
 	var object = this.objects [msg.object_id];
 	if (object != undefined) {
 		this.ownObjects [msg.object_id] = object;
-		
+		object.updater.setAreaToSendUpdates (this);
+
 		var callback = this.requestCallbacks [msg.request_id];
 		if (callback) {
 			callback (object)
@@ -264,6 +265,8 @@ RemoteArea.prototype.takeObjectControl = function (msg) {
 
 RemoteArea.prototype.insertObject = function (obj) {
 	this.objects[obj.id] = obj;
+	obj.updater = new ObjectUpdater (obj);
+		
 }
 
 RemoteArea.prototype.removeObject = function (id) {
@@ -273,6 +276,12 @@ RemoteArea.prototype.removeObject = function (id) {
 	if (this.ownObjects[id] != undefined) {
 		this.ownObjects.splice (id, 1);
 	}
+}
+
+RemoteArea.prototype.recalcObjectPositions = function (now) {
+	this.objects.forEach(function (object) {
+		object.updater.step (now);
+	});
 }
 
 /* Crear un objeto. Se llamara al callback cuando se haya creado correctamente */

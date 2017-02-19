@@ -18,7 +18,8 @@ class Controller implements MessageComponentInterface {
 			],
 			"object" => [
 				"create" => "onMsgObjectCreate",
-				"subscribe" => "onMsgObjectSuscribe"
+				"subscribe" => "onMsgObjectSuscribe",
+				"update status" => "onMsgObjectUpdate"
 			]
 		];
 
@@ -67,6 +68,10 @@ class Controller implements MessageComponentInterface {
 
 	private function onMsgObjectSuscribe($conn, $msg) {
 		$this-> worldServer-> subscribeToObjects ($msg-> left, $msg-> top, $msg-> right, $msg-> bottom, $conn);
+	}
+	
+	private function onMsgObjectUpdate ($conn, $msg) {
+		$this-> worldServer-> updateObject ($msg, $conn);
 	}
 	
 	public function onOpen (ConnectionInterface $conn) {

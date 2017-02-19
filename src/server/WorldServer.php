@@ -13,6 +13,7 @@ class WorldServer {
 	private $surfaceSubscriptors = array();
 	private $objectSubscriptors = array();
 	private $objects = null;
+	private $objectsById = array();
 	private $objectsByOwner = null;
 
 
@@ -170,6 +171,7 @@ class WorldServer {
 		$object = new WorldObject($msg, $conn);
 		
 		$this-> objects-> attach ($object);
+		$this-> objectsById [$object-> id] = $object;
 		if ($this-> objectsByOwner-> offsetExists ($conn)) {
 			$ownedObjects = $this-> objectsByOwner-> offsetGet ($conn);
 			$ownedObjects-> attach ($object);
@@ -178,7 +180,7 @@ class WorldServer {
 			$ownedObjects-> attach ($object);
 			$this-> objectsByOwner-> attach ($conn, $ownedObjects);
 		}
-		$this-> notifyObjectCreation ($object);
+		$this-> notifyObjectStatus ($object);
 		$this-> giveObjectControl ($object, $msg-> request_id, $conn);
 
 		echo "Objeto creado.\n";
@@ -186,7 +188,7 @@ class WorldServer {
 		echo " Cantidad de conexiones con objetos: ".count ($this->objectsByOwner)."\n";
 	}
 
-	private function notifyObjectCreation ($object) {
+	private function notifyObjectStatus ($object) {
 		$json = json_encode ($object);
 
 		foreach ($this-> objectSubscriptors as $subscriptor) {
@@ -202,8 +204,36 @@ class WorldServer {
 		$conn-> send ($json);
 	}
 
+	public function updateObject ($msg, $conn) {
+		if (isset ($this-> objectsById [$msg-> id])) {
+			$object = $this-> objectsById [$msg-> id];
+			if (isset ($msg-> x)) {
+				$object-> x = $msg-> x;
+			}
+			if (isset ($msg-> y)) {
+				$object-> y = $msg-> y;
+			}
+			if (isset ($msg-> speed_x)) {
+				$object-> speed_x = $msg-> speed_x;
+			}
+			if (isset ($msg-> speed_y)) {
+				$object-> speed_y = $msg-> speed_y;
+			}
+			if (isset ($msg-> state)) {
+				$object-> state = $msg-> state;
+			}
+			if (isset ($msg-> current_sprite)) {
+				$object-> current_sprite = $msg-> current_sprite;
+			}
+		}
+
+		$this-> notifyObjectStatus ($object);
+		echo "Se ha actualizado objeto con id " . $msg-> id ."\n";
+	}
+
 	public function removeObject ($object, $conn) {
 		$this-> objects-> offsetUnset ($object);
+		unset ($this-> objectsById [$object->id]);
 		$ownedObjects = $this-> objectsByOwner-> getOffset ($conn);
 		$ownedObjects-> removeOffset ($object);
 		$this-> notifyObjectDestruction ($object);
