@@ -315,5 +315,5 @@ RemoteArea.prototype.sendMessage = function (msg) {
 
 /* Mostar alerta informando que no esta conectado */
 RemoteArea.prototype.alertDisconnected = function () {
-	window.alert ("No hay conexion con el servidor");
+	renderer.showMessage ("No hay conexion con el servidor"); // FIXME renderer es variable global
 }

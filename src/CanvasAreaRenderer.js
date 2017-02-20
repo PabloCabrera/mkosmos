@@ -215,3 +215,14 @@ CanvasAreaRenderer.prototype.setRenderWidth = function (width) {
 CanvasAreaRenderer.prototype.setRenderHeight = function (height) {
 	this.renderSize[1] = height
 }
+
+/* Mostrar mensaje */
+CanvasAreaRenderer.prototype.showMessage = function (text) {
+	this.canvasContext.font = "bold 24px Arial";
+	this.canvasContext.fillStyle = "#000";
+	this.canvasContext.strokeStyle = "#88f";
+	this.canvasContext.textAlign = "center";
+	this.canvasContext.textWeight = "bold";
+	this.canvasContext.strokeText (text, this.renderSize[0]/2, this.renderSize[1]/2);
+	this.canvasContext.fillText (text, this.renderSize[0]/2, this.renderSize[1]/2);
+}
