@@ -59,10 +59,8 @@ RemoteArea.prototype.connectToServer = function (onready) {
 	this.websocket.onmessage = onmessage;
 }
 
-debug_recieveMessage = [];
 /* Procesar un mensaje recibido del servidor */
 RemoteArea.prototype.recieveMessage = function (msg) {
-	debug_recieveMessage.push (msg);
 	var msgData = JSON.parse (msg.data);
 	if (msgData.entity != undefined) {
 		switch (msgData.entity) {
@@ -232,6 +230,8 @@ RemoteArea.prototype.updateObjects = function (msg) {
 RemoteArea.prototype.updateObject = function (obj) {
 	if (this.objects[obj.id] == undefined) {
 		this.insertObject (obj);
+	} else if (this.ownObjects[obj.id] != undefined) {
+		/* Si el objeto es manejado por nosotros, ignoramos el mensaje */
 	} else {
 		var cached = this.objects[obj.id];
 		cached.x = obj.x;

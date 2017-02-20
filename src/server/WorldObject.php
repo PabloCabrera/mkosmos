@@ -28,4 +28,7 @@ class WorldObject {
 		$this-> state = "creating";
 	}
 
+	public function getOwner () {
+		return $this-> owner;
+	}
 }
