@@ -1,0 +1,53 @@
+h3 {
+	clear: both;
+	margin-top: 24px;
+}
+
+dl {
+	display: block;
+	margin: 8px;
+	background: #ddd;
+	font-family: monospace;
+	font-size: 14px;
+	padding: 8px;
+}
+
+
+dt {
+	font-weight: bold;
+	display: block;
+	float:left;
+	clear: both;
+	color: #004;
+}
+
+dt::after {
+	content: ":";
+}
+
+dd {
+	padding-left: 24px;
+	display: block;
+	font-style: italic;
+	color: #400;
+}
+
+dd.numerico {
+	font-style: normal;
+	color: #066;
+}
+
+dd.entero {
+	font-style: normal;
+	color: #048;
+}
+
+dd.terreno {
+	font-style: normal;
+	color: #660;
+}
+
+dd.url {
+	font-style: normal;
+	color: #840;
+}

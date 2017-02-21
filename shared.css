@@ -4,7 +4,7 @@ body {
 }
 
 header {
-	background: #060;
+	background: #080;
 	border: 2px solid white;
 	text-align: center;
 	color: white;
@@ -30,11 +30,11 @@ nav ul {
 }
 
 nav ul li {
-	background: #060;
-	color: white;
+	background: #080;
+	color: #4f4;
 	display: inline;
-	border: 2px solid white;
-	text-shadow: 0px 0px 2px black;
+	border: 2px solid #ff8;
+	text-shadow: 0px 0px 1px black;
 	font-size: 20px;
 	padding: 8px;
 	border-radius: 6px;
@@ -43,12 +43,15 @@ nav ul li {
 }
 
 nav ul li a{
-	color: white;
+	color: #fff;
 	text-decoration: none;
 }
 
 nav ul li:hover {
 	box-shadow: 0px 0px 3px #8f8;
+}
+
+nav ul li a:hover{
 }
 
 section {
