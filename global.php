@@ -35,21 +35,11 @@
 
 	<section id="global_map_section">
 	<div class="controllers">
-	<input type="number" value="1" min="0.5" step="0.5" max="10" onload="renderer.setZoomLevel(this.value)" onchange="renderer.setZoomLevel(this.value)">
-	<button onclick="renderer.move(0, -5)">Arriba</button>
-	<br>
-	<button onclick="renderer.move(-5, 0)">Izquierda</button>
-	<button onclick="renderer.move(5, 0)">Derecha</button>
-	<br>
-	<button onclick="renderer.move(0, 5)">Abajo</button>
 	<br>
 	<br>
 	<button onclick="generateCircle()">Generar circulo</button>
 	<button onclick="generateRect()">Generar rectangulo</button>
 	<br>
-	<br>
-	<button onclick="createObject()">Generar Objeto</button>
-	<button onclick="moveObjects()">Mover Objetos</button>
 	</section>
 	<?php include "footer.php"; ?>
 </body>
