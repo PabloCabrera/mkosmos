@@ -153,7 +153,7 @@ onPlayerCreated = function (object) {
 }
 
 createPlayer = function (x, y, callback) {
-	area.createObject(x, y, callback);
+	area.createObject(x, y, 0.5, "/res/characters/magician/01.json", callback);
 }
 
 initPlayerConstraint = function () {
@@ -192,13 +192,12 @@ initPlayerConstraint = function () {
 
 playerShoot = function () {
 	var orientation = getPlayerOrientation();
-	console.log ("Orientation: "+orientation);
-	area.createObject (player.object.x, player.object.y, function (obj){
-		obj.radius = 0.1;
+	area.createObject (player.object.x, player.object.y, 0.1, null, function (obj){
 		obj.speed_x = orientation[0]*5;
 		obj.speed_y = orientation[1]*5;
+		var objcopy = obj;
 		window.setTimeout (function () {
-			area.destroyObject (obj);
+			area.destroyObject (objcopy);
 		}, 1000);
 	});
 }

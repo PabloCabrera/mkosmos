@@ -12,6 +12,7 @@
 	<script type="application/javascript" src="src/CanvasAreaRenderer.js"></script>
 	<script type="application/javascript" src="src/Surface.js"></script>
 	<script type="application/javascript" src="src/SVGTileFactory.js"></script>
+	<script type="application/javascript" src="src/ResourceHandler.js"></script>
 	<script type="application/javascript" src="global.js"></script>
 	<link rel="stylesheet" type="text/css" link="shared.css" />
 	<style>

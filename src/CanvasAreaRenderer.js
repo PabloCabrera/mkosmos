@@ -132,7 +132,11 @@ CanvasAreaRenderer.prototype.drawObject = function (object) {
 	var radius = object.radius * this.tileScale[0];
 	this.canvasContext.beginPath();
 	this.canvasContext.arc(drawX, drawY, radius, 0, 6.28319);
-	this.canvasContext.fillStyle = 'red';
+	if (object.archetype && object.archetype.color){
+		this.canvasContext.fillStyle = object.archetype.color;
+	} else {
+		this.canvasContext.fillStyle = 'red';
+	}
 	this.canvasContext.fill();
 	this.canvasContext.closePath();
 }

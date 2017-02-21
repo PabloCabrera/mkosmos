@@ -3,7 +3,7 @@
 class WorldObject {
 	public $entity = "object";
 	public $id;
-	public $resource_link;
+	public $archetype_url;
 	public $radius;
 	public $x;
 	public $y;
@@ -24,6 +24,9 @@ class WorldObject {
 		$this-> radius = $msg-> radius;
 		$this-> speed_x = $msg-> speed_x;
 		$this-> speed_y = $msg-> speed_y;
+		if (isset ($msg-> archetype_url)) {
+			$this-> archetype_url = $msg-> archetype_url;
+		}
 		$this-> owner = $conn;
 		$this-> state = "creating";
 	}

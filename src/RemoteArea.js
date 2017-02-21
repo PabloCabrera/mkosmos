@@ -12,6 +12,7 @@ RemoteArea = function (uri) {
 	this.requestCallbacks = [];
 	this.ownObjects = [];
 	this.lastRequestId = 0;
+	this.resourceHandler = new ResourceHandler();
 	
 	var self = this;
 	var onready = function () {
@@ -269,7 +270,12 @@ RemoteArea.prototype.takeObjectControl = function (msg) {
 RemoteArea.prototype.insertObject = function (obj) {
 	this.objects[obj.id] = obj;
 	obj.updater = new ObjectUpdater (obj);
-		
+	if (obj.archetype_url) {
+		this.resourceHandler.execOnArchetype (obj.archetype_url, function (arc) {
+			console.log ("llamando a callback");
+			obj.archetype = arc;
+		});
+	}
 }
 
 RemoteArea.prototype.removeObject = function (id) {
@@ -288,15 +294,16 @@ RemoteArea.prototype.recalcObjectPositions = function (now) {
 }
 
 /* Crear un objeto. Se llamara al callback cuando se haya creado correctamente */
-RemoteArea.prototype.createObject = function (x, y, callback) {
+RemoteArea.prototype.createObject = function (x, y, radius, archetype_url, callback) {
 	var req_id = ++this.lastRequestId;
 	this.requestCallbacks[req_id] = callback;
 
 	var msg = {
 		entity: "object",
 		action: "create",
+		archetype_url: archetype_url,
 		request_id: req_id,
-		radius: 1,
+		radius: radius,
 		x: x,
 		y: y,
 		speed_x: 0,
@@ -317,6 +324,7 @@ RemoteArea.prototype.destroyObject = function (object) {
 	}
 
 	this.sendMessage (msg);
+	this.removeObject (object.id);
 }
 
 /* Enviar un mensaje al servidor */
