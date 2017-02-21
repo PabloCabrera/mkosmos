@@ -1,5 +1,5 @@
 window.onload = function() {
-	area = new RemoteArea ("ws://10.12.13.72:8000");
+	area = new RemoteArea (CONFIG_SERVER_ADDRESS);
 	renderer = new CanvasAreaRenderer (area);
 	renderer.setViewSize([128, 128]);
 	renderer.setRenderSize([600, 600]);
