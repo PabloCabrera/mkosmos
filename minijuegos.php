@@ -13,6 +13,7 @@
 
 	<section>
 
+	<a href="juego_ejemplo.php">Ejemplo de juego</a>
 	</section>
 
 </body>

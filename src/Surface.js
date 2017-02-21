@@ -52,3 +52,7 @@ SurfaceColor[Surface.ICE]="#ccf";
 SurfaceColor[Surface.METAL]="#888";
 SurfaceColor[Surface.GOLD]="#fe0";
 SurfaceColor[Surface.VOID]="#000";
+
+Surface.isSolid = function (surface) {
+	return (surface>31 && surface<224);
+}

@@ -15,6 +15,7 @@
 		<div id="scroller"> Empezar a jugar!</div>
 
 		<p>Un mundo totalmente dinámico con cientos de minijuegos desarrollandose al mismo tiempo.</p>
+		<p>En este mundo se crean y destruyen todo el tiempo personajes y objetos, los cuales pueden interactuar entre si, y con el terreno.</p>
 		<p>El terreno esta en constante cambio como consecuencia de la actividad de los habitantes.  Un bosque puede convertirse en desierto si se talan sus arboles, un desierto puede convertirse en ciudad si se construyen edificios, y una ciudad puede desaparecer tras una explosión termonuclear.</p>
 	</section>
 
