@@ -207,6 +207,7 @@ class WorldServer {
 	public function updateObject ($msg, $conn) {
 		if (isset ($this-> objectsById [$msg-> id])) {
 			$object = $this-> objectsById [$msg-> id];
+
 			if (isset ($msg-> x)) {
 				$object-> x = $msg-> x;
 			}
@@ -228,14 +229,21 @@ class WorldServer {
 		}
 
 		$this-> notifyObjectStatus ($object);
-		echo "Se ha actualizado objeto con id " . $msg-> id ."\n";
+		//echo "Se ha actualizado objeto con id " . $msg-> id ."\n";
+	}
+
+	public function destroyObject ($msg, $conn) {
+		if (isset ($this-> objectsById[$msg-> id])) {
+			echo "Objeto destruido\n";
+			$this-> removeObject ($this-> objectsById[$msg-> id], $conn);
+		}
 	}
 
 	public function removeObject ($object, $conn) {
 		$this-> objects-> offsetUnset ($object);
 		unset ($this-> objectsById [$object->id]);
-		$ownedObjects = $this-> objectsByOwner-> getOffset ($conn);
-		$ownedObjects-> removeOffset ($object);
+		$ownedObjects = $this-> objectsByOwner-> offsetGet ($conn);
+		$ownedObjects-> offsetUnset ($object);
 		$this-> notifyObjectDestruction ($object);
 	}
 

@@ -120,6 +120,14 @@
 			<dt>speed_x</dt> <dd class="numerico">Valor numérico. Velocidad hacia eje X positivo (derecha).</dd>
 			<dt>speed_y</dt> <dd class="numerico">Valor numérico. Velocidad hacia eje Y positivo (abajo).</dd>
 		</dl>
+		
+		<h3>Object Destroy</h3>
+		<p>Informa sobre la destrucción de un objeto bajo el control del cliente.</p>
+		<dl>
+			<dt>entity</dt> <dd>"object"</dd>
+			<dt>action</dt> <dd>"destroy"</dd>
+			<dt>id</dt> <dd class="entero">Valor entero. Identificador del objeto<dd>
+		</dl>
 
 		<h2>Mensajes enviados por el servidor</h2>
 

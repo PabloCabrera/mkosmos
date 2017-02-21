@@ -19,7 +19,8 @@ class Controller implements MessageComponentInterface {
 			"object" => [
 				"create" => "onMsgObjectCreate",
 				"subscribe" => "onMsgObjectSuscribe",
-				"update status" => "onMsgObjectUpdate"
+				"update status" => "onMsgObjectUpdate",
+				"destroy" => "OnMsgObjectDestroy"
 			]
 		];
 
@@ -72,6 +73,10 @@ class Controller implements MessageComponentInterface {
 	
 	private function onMsgObjectUpdate ($conn, $msg) {
 		$this-> worldServer-> updateObject ($msg, $conn);
+	}	
+
+	private function onMsgObjectDestroy ($conn, $msg) {
+		$this-> worldServer-> destroyObject ($msg, $conn);
 	}
 	
 	public function onOpen (ConnectionInterface $conn) {
@@ -79,10 +84,8 @@ class Controller implements MessageComponentInterface {
 	}
 
 	public function onMessage (ConnectionInterface $conn, $msgText) {
-		echo "Se ha recibido un mensaje\n";
 		$msg = json_decode ($msgText);
-		echo "\t Entidad: {$msg->entity}\n";
-		echo "\t Action: {$msg->action}\n";
+		echo "Mensaje recibido: {$msg->entity} {$msg->action}\n";
 		if (isset ($this-> messageHandlers[$msg->entity][$msg->action])) {
 			$methodName = $this-> messageHandlers[$msg->entity][$msg->action];
 			$this-> $methodName ($conn, $msg);

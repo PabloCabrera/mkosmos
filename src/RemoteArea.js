@@ -307,6 +307,18 @@ RemoteArea.prototype.createObject = function (x, y, callback) {
 	this.sendMessage (msg);
 }
 
+/* Destruir un objeto. */
+RemoteArea.prototype.destroyObject = function (object) {
+
+	var msg = {
+		entity: "object",
+		action: "destroy",
+		id: object.id,
+	}
+
+	this.sendMessage (msg);
+}
+
 /* Enviar un mensaje al servidor */
 RemoteArea.prototype.sendMessage = function (msg) {
 	if (this.websocket && this.websocket.readyState==1) {

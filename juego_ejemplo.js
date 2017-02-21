@@ -1,9 +1,11 @@
 player = {
 	moveX: 0,
 	moveY: 0,
-	shoot: function () {
-		console.log ("shoot");
-	}
+	lastPressed:"up",
+	pressingUp: false,
+	pressingDown: false,
+	pressingLeft: false,
+	pressingRight: false
 }
 
 window.onload = function() {
@@ -68,41 +70,53 @@ initKeyListeners = function () {
 
 pressLeft = function () {
 	player.object.speed_x = -2;
+	player.pressingLeft = true;
 }
 
 releaseLeft = function () {
 	player.object.speed_x = 0;
+	player.pressingLeft = false;
+	player.lastPressed = "left";
 }
 
 pressRight = function () {
 	player.object.speed_x = 2;
+	player.pressingRight = true;
 }
 
 releaseRight = function () {
 	player.object.speed_x = 0;
+	player.pressingRight = false;
+	player.lastPressed = "right";
 }
 
 pressUp = function () {
 	player.object.speed_y = -2;
+	player.pressingUp = true;
 }
 
 releaseUp = function () {
 	player.object.speed_y = 0;
+	player.pressingUp = false;
+	player.lastPressed = "up";
 }
 
 pressDown = function () {
 	player.object.speed_y = 2;
+	player.pressingDown = true;
 }
 
 releaseDown = function () {
 	player.object.speed_y = 0;
+	player.pressingDown = false;
+	player.lastPressed = "down";
 }
 
 pressSpace = function () {
-	player.shoot();
 }
 
 releaseSpace = function () {
+	playerShoot();
 }
 
 initPlayer = function () {
@@ -176,21 +190,48 @@ initPlayerConstraint = function () {
 	}, 100);
 }
 
-moveObjects = function () {
-	area.ownObjects.forEach(function (object) {
-		var speed_x = -1 + 2*Math.random();
-		var speed_y = -1 + 2*Math.random();
-		object.speed_x = speed_x;
-		object.speed_y = speed_y;
-		var msg = {
-			entity: "object",
-			action: "update status",
-			id: object.id,
-			speed_x: speed_x,
-			speed_y: speed_y
-		}
-		area.sendMessage (msg);
+playerShoot = function () {
+	var orientation = getPlayerOrientation();
+	console.log ("Orientation: "+orientation);
+	area.createObject (player.object.x, player.object.y, function (obj){
+		obj.radius = 0.1;
+		obj.speed_x = orientation[0]*5;
+		obj.speed_y = orientation[1]*5;
+		window.setTimeout (function () {
+			area.destroyObject (obj);
+		}, 1000);
 	});
 }
 
+getPlayerOrientation = function () {
+	var orient_x = 0;
+	var orient_y = 0;
 
+	if (player.pressingLeft) {
+		orient_x = -1;
+	} else if (player.pressingRight) {
+		orient_x = 1;
+	}
+
+	if (player.pressingUp) {
+		orient_y = -1;
+	} else if (player.pressingDown) {
+		orient_y = 1;
+	}
+
+	if (orient_x == 0 && orient_y == 0) {
+		switch (player.lastPressed) {
+			case "up":
+				return [0, -1];
+			case "down":
+				return [0, 1];
+			case "left":
+				return [-1, 0];
+			case "right":
+				return [1, 0];
+		}
+	} else {
+		return [orient_x, orient_y];
+	}
+
+}
