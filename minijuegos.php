@@ -13,6 +13,7 @@
 
 	<section id="minijuegos">
 
+	<a href="juego_ejemplo.php">Ejemplo de juego</a>
 	</section>
 	<?php include "footer.php"; ?>
 </body>

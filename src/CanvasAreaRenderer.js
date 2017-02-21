@@ -7,6 +7,8 @@ CanvasAreaRenderer = function (area) {
 	this.drawingCanvas = null;
 	this.canvasContext = null;
 	this.mustExit = false;
+	this.followTarget = null;
+	this.followIntervalId = null;
 }
 
 /* Establecer un nivel de zoom */
@@ -158,6 +160,28 @@ CanvasAreaRenderer.prototype.goTo = function (x, y) {
 	this.viewOrigin[1] = y;
 	this.adjust();
 	//this.refresh();
+}
+
+/* Seguir a un objeto particular */
+CanvasAreaRenderer.prototype.follow = function (target) {
+	this.followTarget = target;
+	var shiftLeft = this.viewSize[0]/2;
+	var shiftTop = this.viewSize[1]/2;
+	var self = this;
+	this.followIntervalId = window.setInterval (function () {
+		var destination_x = target.x - shiftLeft;
+		var destination_y = target.y - shiftTop;
+		self.goTo (destination_x, destination_y);
+	}, 2000);
+}
+
+/* Dejar de seguir a un objeto */
+CanvasAreaRenderer.prototype.stopFollow = function () {
+	this.followTarget = null;
+	if (this.followIntervalId != null) {
+		window.clearInterval (this.followIntervalId);
+		this.followIntervalId = null;
+	}
 }
 
 /* Moverse a una ubicacion relativa  */

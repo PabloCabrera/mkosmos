@@ -247,6 +247,9 @@ RemoteArea.prototype.takeObjectControl = function (msg) {
 	var object = this.objects [msg.object_id];
 	if (object != undefined) {
 		this.ownObjects [msg.object_id] = object;
+		if (!object.updater) {
+			object.updater = new ObjectUpdater (obj);
+		}
 		object.updater.setAreaToSendUpdates (this);
 
 		var callback = this.requestCallbacks [msg.request_id];
