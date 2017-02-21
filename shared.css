@@ -59,7 +59,7 @@ section {
 	color: black;
 	min-height: 400px;
 	padding: 32px;
-	border-radius: 12px;
+	border-radius: 12px 12px 0px 0px;
 	font-size: 18px;
 }
 
@@ -84,4 +84,22 @@ section sidebar a{
 	margin: 24px;
 	border-radius: 24px;
 	font-size: 24px;
+}
+
+body > footer {
+	background: #040;
+	border: 1px solid black;
+	color: white;
+	text-align: right;
+	text-shadow: 0px 0px 2px black;
+	font-size: 12px;
+	padding: 4px;
+	border-radius: 0px 0px 4px 4px;
+	margin-top: 0px;
+}
+
+body > footer a{
+	color: white;
+	text-decoration: none;
+	font-style: italic;
 }

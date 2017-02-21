@@ -51,4 +51,5 @@
 	<button onclick="createObject()">Generar Objeto</button>
 	<button onclick="moveObjects()">Mover Objetos</button>
 	</section>
+	<?php include "footer.php"; ?>
 </body>

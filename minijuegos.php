@@ -11,8 +11,8 @@
 
 	<?php include "nav.php"; ?>
 
-	<section>
+	<section id="minijuegos">
 
 	</section>
-
+	<?php include "footer.php"; ?>
 </body>
