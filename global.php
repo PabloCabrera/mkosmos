@@ -1,6 +1,10 @@
 <html>
 <head>
-	<title>Prueba</title>
+	<meta charset="utf-8" />
+	<title>μ-κosmos: Mapa del mundo</title>
+	<link rel="stylesheet" type="text/css" href="shared.css" />
+	<script src="index.js"></script>
+	<script src="jquery-3.1.1.min.js"></script>
 	<script type="application/javascript" src="config.js"></script>
 	<script type="application/javascript" src="jquery-3.1.1.min.js"></script>
 	<script type="application/javascript" src="src/RemoteArea.js"></script>
@@ -13,7 +17,11 @@
 	<style>
 		canvas {
 			border: 1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+
 		}
+		
 		.controllers {
 			float: right;
 			width: 200px;
@@ -22,7 +30,10 @@
 	</style>
 </head>
 <body>
-	<h1>Vision global</h1>
+
+	<?php include "nav.php"; ?>
+
+	<section id="global_map_section">
 	<div class="controllers">
 	<input type="number" value="1" min="0.5" step="0.5" max="10" onload="renderer.setZoomLevel(this.value)" onchange="renderer.setZoomLevel(this.value)">
 	<button onclick="renderer.move(0, -5)">Arriba</button>
@@ -39,4 +50,5 @@
 	<br>
 	<button onclick="createObject()">Generar Objeto</button>
 	<button onclick="moveObjects()">Mover Objetos</button>
+	</section>
 </body>

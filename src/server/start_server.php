@@ -11,6 +11,7 @@ use Ratchet\WebSocket\WsServer;
 const MAP_WIDTH = 128;
 const MAP_HEIGHT = 128;
 const MAP_FILENAME = "worldfile.json";
+const SERVER_PORT = 443;
 
 $controller = new Controller();
 $worldServer = WorldGenerator::generateIslands (MAP_WIDTH, MAP_HEIGHT);
@@ -30,7 +31,7 @@ $server = IoServer::factory(
 			$controller
 		)
 	),
-	8000
+	SERVER_PORT
 );
 
 

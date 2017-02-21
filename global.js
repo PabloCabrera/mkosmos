@@ -3,7 +3,8 @@ window.onload = function() {
 	renderer = new CanvasAreaRenderer (area);
 	renderer.setViewSize([128, 128]);
 	renderer.setRenderSize([600, 600]);
-	window.setTimeout (function(){renderer.render (document.body, 20)}, 1000);
+	var container = document.getElementById ('global_map_section');
+	window.setTimeout (function(){renderer.render (container, 20)}, 1000);
 }
 
 generateCircle = function () {
