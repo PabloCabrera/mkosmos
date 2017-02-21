@@ -272,8 +272,15 @@ RemoteArea.prototype.insertObject = function (obj) {
 	obj.updater = new ObjectUpdater (obj);
 	if (obj.archetype_url) {
 		this.resourceHandler.execOnArchetype (obj.archetype_url, function (arc) {
-			console.log ("llamando a callback");
 			obj.archetype = arc;
+			if (obj.attribs == undefined) {
+				obj.attribs = {};
+			}
+			for (var atr_name in arc.attribs) {
+				if (arc.attribs.hasOwnProperty (atr_name) && !obj.attribs.hasOwnProperty (atr_name)) {
+					obj.attribs[atr_name] =  arc.attribs[atr_name];
+				}
+			}
 		});
 	}
 }

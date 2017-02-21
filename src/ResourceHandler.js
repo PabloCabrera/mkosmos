@@ -3,7 +3,6 @@ ResourceHandler = function () {
 }
 
 ResourceHandler.prototype.execOnArchetype = function (url, callback) {
-	console.log ("execOnArchetype "+url);
 	if (this.archetypes[url] != undefined) {
 		callback (this.archetypes [url]);
 	} else {
@@ -13,7 +12,6 @@ ResourceHandler.prototype.execOnArchetype = function (url, callback) {
 			dataType: "json",
 		  	success: function (data) {
 				self.archetypes [url] = data;
-				console.log ("ajax success");
 				callback (data);
 			},
 		  	error: function (err) {
