@@ -52,7 +52,7 @@ CollisionChecker.prototype.notifyObjectAttributes = function (object) {
 
 	this.rules.forEach (function (rule) {
 		if (
-			self.objectMatchesRule (rule)
+			self.objectMatchesRule (object, rule)
 			&& rule.object != object
 		) {
 			self.addCheck (rule.object, object, rule.callback);

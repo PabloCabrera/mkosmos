@@ -60,6 +60,9 @@ RemoteArea.prototype.connectToServer = function (onready) {
 	this.websocket = new WebSocket (this.uri);
 	this.websocket.onopen = onready;
 	this.websocket.onmessage = onmessage;
+	window.onbeforeunload = function () {
+		self.websocket.close();
+	}
 }
 
 /* Procesar un mensaje recibido del servidor */
@@ -221,11 +224,9 @@ RemoteArea.prototype.updateObjects = function (msg) {
 	} else {
 		switch (msg.action) {
 			case "grant control":
-				console.log ("Se ha recibido el control sobre el objeto con id "+msg.object_id);
 				this.takeObjectControl (msg);
 				break;
 			case "destroy":
-				console.log ("Objeto con id "+msg.id+" ha sido destruido");
 				this.removeObject (msg.id);
 				break;
 		}
@@ -272,6 +273,7 @@ RemoteArea.prototype.takeObjectControl = function (msg) {
 }
 
 RemoteArea.prototype.insertObject = function (obj) {
+	var self = this;
 	this.objects[obj.id] = obj;
 	obj.updater = new ObjectUpdater (obj);
 	if (obj.archetype_url) {
@@ -285,6 +287,7 @@ RemoteArea.prototype.insertObject = function (obj) {
 					obj.attribs[atr_name] =  arc.attribs[atr_name];
 				}
 			}
+			self.collisionChecker.notifyObjectAttributes (obj);
 		});
 	}
 }
