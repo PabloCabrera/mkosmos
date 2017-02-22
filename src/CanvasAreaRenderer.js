@@ -9,6 +9,7 @@ CanvasAreaRenderer = function (area) {
 	this.mustExit = false;
 	this.followTarget = null;
 	this.followIntervalId = null;
+	area.setRenderer (this);
 }
 
 /* Establecer un nivel de zoom */
@@ -27,7 +28,7 @@ CanvasAreaRenderer.prototype.startRenderLoop = function (maxFps) {
 
 CanvasAreaRenderer.prototype.renderStep = function () {
 	var beforeRender = Date.now ();
-	area.recalcObjectPositions (beforeRender);
+	this.area.recalcObjectPositions (beforeRender);
 	this.refresh();
 	var afterRender = Date.now ();
 	var renderTime = afterRender - beforeRender;
@@ -127,8 +128,7 @@ CanvasAreaRenderer.prototype.drawObjects = function () {
 
 /* Dibujar un objeto */
 CanvasAreaRenderer.prototype.drawObject = function (object) {
-	if (area.resourceHandler.hasObjectSprite (object) && object.current_sprite){
-		//FIXME global variable area
+	if (this.area.resourceHandler.hasObjectSprite (object) && object.current_sprite){
 		this.drawObjectImage (object);
 	} else {
 		this.drawObjectSimple (object);
@@ -156,7 +156,7 @@ CanvasAreaRenderer.prototype.drawObjectImage = function (object) {
 	var drawY = (object.y - this.viewOrigin[1] - object.radius) * this.tileScale[1];
 	var drawWidth = 2* object.radius * this.tileScale[0];
 	var drawHeight = 2* object.radius * this.tileScale[1];
-	area.resourceHandler.drawObject (object, renderer.canvasContext, drawX, drawY, drawWidth, drawHeight); //FIXME usando variables global area y renderer
+	this.area.resourceHandler.drawObject (object, this.canvasContext, drawX, drawY, drawWidth, drawHeight);
 }
 
 /* Traducir las coordenadas del mapa a las coordenadas del canvas */

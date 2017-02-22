@@ -2,6 +2,7 @@ CollisionChecker = function () {
 	this.checks = [];
 	this.intervalHandler = null;
 	this.cps = 10; //Chequeos por segundo
+	this.start();
 }
 
 CollisionChecker.prototype.addCheck = function (one, other, callback) {

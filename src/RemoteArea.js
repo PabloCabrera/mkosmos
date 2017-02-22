@@ -13,6 +13,8 @@ RemoteArea = function (uri) {
 	this.ownObjects = [];
 	this.lastRequestId = 0;
 	this.resourceHandler = new ResourceHandler();
+	this.collisionChecker = new CollisionChecker();
+	this.renderer = null;
 	
 	var self = this;
 	var onready = function () {
@@ -84,7 +86,9 @@ RemoteArea.prototype.updateMapSurface = function (msg) {
 	} else {
 		this.setSurfaceAt (msg.x, msg.y, msg.surface);
 	}
-	renderer.refresh (); // FIXME: renderer es variable global
+	if (this.renderer != null) {
+		this.renderer.refresh ();
+	}
 }
 
 /* Inicializar el mapa a partir de un mensaje recibido del servidor */
@@ -211,8 +215,8 @@ RemoteArea.prototype.updateObjects = function (msg) {
 	if (msg.action == undefined) {
 		this.updateObject (msg);
 
-		if (this.map != null) {
-			renderer.refresh();  // FIXME renderer es variable global
+		if (this.map != null && this.renderer != null) {
+			this.renderer.refresh();
 		}
 	} else {
 		switch (msg.action) {
@@ -345,5 +349,15 @@ RemoteArea.prototype.sendMessage = function (msg) {
 
 /* Mostar alerta informando que no esta conectado */
 RemoteArea.prototype.alertDisconnected = function () {
-	renderer.showMessage ("No hay conexion con el servidor"); // FIXME renderer es variable global
+	if (this.renderer != null) {
+		this.renderer.showMessage ("No hay conexion con el servidor");
+	}
+}
+
+RemoteArea.prototype.setRenderer = function (renderer) {
+	this.renderer = renderer;
+}
+
+RemoteArea.prototype.setCollisionChecker = function (checker) {
+	this.collisionChecker = checker;
 }
