@@ -308,7 +308,7 @@ RemoteArea.prototype.recalcObjectPositions = function (now) {
 }
 
 /* Crear un objeto. Se llamara al callback cuando se haya creado correctamente */
-RemoteArea.prototype.createObject = function (x, y, radius, archetype_url, callback) {
+RemoteArea.prototype.createObject = function (x, y, speed_x, speed_y, radius, archetype_url, callback) {
 	var req_id = ++this.lastRequestId;
 	this.requestCallbacks[req_id] = callback;
 
@@ -320,8 +320,8 @@ RemoteArea.prototype.createObject = function (x, y, radius, archetype_url, callb
 		radius: radius,
 		x: x,
 		y: y,
-		speed_x: 0,
-		speed_y: 0
+		speed_x: speed_x,
+		speed_y: speed_y 
 	
 	}
 

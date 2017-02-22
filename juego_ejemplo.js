@@ -71,53 +71,53 @@ initKeyListeners = function () {
 pressLeft = function () {
 	player.object.speed_x = -2;
 	player.pressingLeft = true;
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 releaseLeft = function () {
 	player.object.speed_x = 0;
 	player.pressingLeft = false;
 	player.lastPressed = "left";
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 pressRight = function () {
 	player.object.speed_x = 2;
 	player.pressingRight = true;
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 releaseRight = function () {
 	player.object.speed_x = 0;
 	player.pressingRight = false;
 	player.lastPressed = "right";
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 pressUp = function () {
 	player.object.speed_y = -2;
 	player.pressingUp = true;
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 releaseUp = function () {
 	player.object.speed_y = 0;
 	player.pressingUp = false;
 	player.lastPressed = "up";
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 pressDown = function () {
 	player.object.speed_y = 2;
 	player.pressingDown = true;
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 releaseDown = function () {
 	player.object.speed_y = 0;
 	player.pressingDown = false;
 	player.lastPressed = "down";
-	updatePlayerSprite ();
+	updatePlayer ();
 }
 
 pressSpace = function () {
@@ -165,10 +165,16 @@ onPlayerCreated = function (object) {
 }
 
 createPlayer = function (x, y, callback) {
-	area.createObject(x, y, 0.5, "/res/characters/detective/01.json", callback);
+	area.createObject(
+		x, y, //position
+		0, 0, //speed
+		0.5, //radius
+		"/res/characters/detective/01.json", //archetype
+		callback //run on creation successful
+	);
 }
 
-updatePlayerSprite = function () {
+updatePlayer = function () {
 	if (player.object.speed_y > 0) {
 		player.object.current_sprite = "walking_down";
 	} else if (player.object.speed_y < 0) {
@@ -180,6 +186,7 @@ updatePlayerSprite = function () {
 	} else {
 		player.object.current_sprite = "idle_"+player.lastPressed;
 	}
+	player.object.updater.update();
 }
 
 initPlayerConstraint = function () {
@@ -218,14 +225,17 @@ initPlayerConstraint = function () {
 
 playerShoot = function () {
 	var orientation = getPlayerOrientation();
-	area.createObject (player.object.x, player.object.y, 0.1, null, function (obj){
-		obj.speed_x = orientation[0]*5;
-		obj.speed_y = orientation[1]*5;
-		var objcopy = obj;
-		window.setTimeout (function () {
-			area.destroyObject (objcopy);
-		}, 1000);
-	});
+	area.createObject (
+		player.object.x, player.object.y, //position
+		orientation[0]*5, orientation[1]*5, //speed
+		0.1, //radius
+		null, //archetype
+		function (obj){ //run on creation successful
+			window.setTimeout (function () {
+				area.destroyObject (obj);
+			}, 1000);
+		}
+	);
 }
 
 getPlayerOrientation = function () {

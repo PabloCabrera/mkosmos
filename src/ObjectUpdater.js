@@ -18,6 +18,18 @@ ObjectUpdater.prototype.step = function (now) {
 	}
 }
 
+ObjectUpdater.prototype.update = function () {
+	var now = Date.now ();
+	var elapsed = (now - this.lastStep)/1000;
+	this.object.x += this.object.speed_x * elapsed;
+	this.object.y += this.object.speed_y * elapsed;
+	this.lastStep = now;
+
+	if (this.area != null) {
+		this.sendUpdateMsg();
+	}
+}
+
 ObjectUpdater.prototype.sendUpdateMsg = function () {
 	var msg = {
 		entity: "object",
