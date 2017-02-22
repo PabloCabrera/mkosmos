@@ -114,6 +114,7 @@ CanvasRenderer.prototype.drawTile = function (surface, x, y) {
 /* Dibujar objetos visibles */
 CanvasRenderer.prototype.drawObjects = function () {
 	var self = this;
+	var time = Date.now();
 	this.area.objects.forEach (function (object) {
 		if (
 			(object.x+object.radius >= self.viewOrigin[0]) &&
@@ -121,20 +122,20 @@ CanvasRenderer.prototype.drawObjects = function () {
 			(object.y+object.radius >= self.viewOrigin[1]) &&
 			(object.y-object.radius <= self.viewOrigin[1]+self.viewSize[1])
 		) {
-			self.drawObject (object);
+			self.drawObject (object, time);
 		}
 	});
 	
 }
 
 /* Dibujar un objeto */
-CanvasRenderer.prototype.drawObject = function (object) {
+CanvasRenderer.prototype.drawObject = function (object, time) {
 	if (
 		this.drawImages
 		&& this.area.resourceHandler.hasObjectSprite (object)
 		&& object.current_sprite
 	){
-		this.drawObjectImage (object);
+		this.drawObjectImage (object, time);
 	} else {
 		this.drawObjectSimple (object);
 	}
@@ -156,12 +157,12 @@ CanvasRenderer.prototype.drawObjectSimple = function (object) {
 	this.canvasContext.closePath();}
 
 /* Dibujar un objeto */
-CanvasRenderer.prototype.drawObjectImage = function (object) {
+CanvasRenderer.prototype.drawObjectImage = function (object, time) {
 	var drawX = (object.x - this.viewOrigin[0] - object.radius) * this.tileScale[0];
 	var drawY = (object.y - this.viewOrigin[1] - object.radius) * this.tileScale[1];
 	var drawWidth = 2* object.radius * this.tileScale[0];
 	var drawHeight = 2* object.radius * this.tileScale[1];
-	this.area.resourceHandler.drawObject (object, this.canvasContext, drawX, drawY, drawWidth, drawHeight);
+	this.area.resourceHandler.drawObject (object, this.canvasContext, drawX, drawY, drawWidth, drawHeight, time);
 }
 
 /* Traducir las coordenadas del mapa a las coordenadas del canvas */

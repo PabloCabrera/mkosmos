@@ -39,12 +39,11 @@ class Controller implements MessageComponentInterface {
 	}
 
 	private function sendMessage ($conn, $msg) {
-		echo "Se ha enviado un mensaje al usuario\n";
 		$conn-> send (json_encode($msg));
 	}
 
 	private function onMsgSurfaceSet ($conn, $msg) {
-		echo "Se ha recibido un mensaje setSurface\n";
+		echo "Recibido mensaje setSurface\n";
 		if (isset ($msg-> shape)) {
 			switch ($msg-> shape) {
 				case "rectangle":
@@ -80,12 +79,11 @@ class Controller implements MessageComponentInterface {
 	}
 	
 	public function onOpen (ConnectionInterface $conn) {
-		echo "Se ha conectado un usuario\n";
+		echo "Usuario conectado\n";
 	}
 
 	public function onMessage (ConnectionInterface $conn, $msgText) {
 		$msg = json_decode ($msgText);
-		echo "Mensaje recibido: {$msg->entity} {$msg->action}\n";
 		if (isset ($this-> messageHandlers[$msg->entity][$msg->action])) {
 			$methodName = $this-> messageHandlers[$msg->entity][$msg->action];
 			$this-> $methodName ($conn, $msg);
@@ -96,14 +94,14 @@ class Controller implements MessageComponentInterface {
 	}
 
 	public function onClose (ConnectionInterface $conn) {
-		echo "Se ha desconectado un usuario\n";
+		echo "Usuario desconectado\n";
 		$this-> worldServer-> unsubscribeToObjects ($conn);
 		$this-> worldServer-> unsubscribeToSurface ($conn);
 		$this-> worldServer-> removeObjectsByOwner ($conn);
 	}
 
 	public function onError (ConnectionInterface $conn, \Exception $e) {
-		echo "Ha ocurrido un error: {$e->getMessage()}\n";
+		echo "Error: {$e->getMessage()}\n";
 		$this-> worldServer-> unsubscribeToSurface ($conn);
 		$conn->close();
 	}

@@ -86,7 +86,7 @@ class WorldServer {
 	}
 
 	public function subscribeToSurface ($left, $top, $right, $bottom, $conn) {
-		echo "Se ha subscripto un cliente para recibir cambios de superficie.\n";
+		echo "Cliente subscripto a cambios de superficie.\n";
 		$this-> unsubscribeToSurface ($conn);
 		$this-> surfaceSubscriptors[] = new Subscription ($left, $top, $right, $bottom, $conn);
 	}
@@ -109,7 +109,6 @@ class WorldServer {
 				if ($json == null) {
 					$json = json_encode ($surfaceRect);
 				}
-				echo "Se enviara un mensaje de actualizacion a un subscriptor\n";
 				$subscriptor-> send ($json);
 			}
 		}
@@ -136,7 +135,7 @@ class WorldServer {
 	}
 
 	public function subscribeToObjects ($left, $top, $right, $bottom, $conn) {
-		echo "Se ha subscripto un cliente para recibir cambios en objetos.\n";
+		echo "Cliente subscripto a objetos.\n";
 		$this-> unsubscribeToObjects ($conn);
 		$subscription = new Subscription ($left, $top, $right, $bottom, $conn);
 		$this-> objectSubscriptors[] = $subscription;
@@ -183,9 +182,7 @@ class WorldServer {
 		$this-> notifyObjectStatus ($object);
 		$this-> giveObjectControl ($object, $msg-> request_id, $conn);
 
-		echo "Objeto creado.\n";
-		echo " Cantidad de objetos: ".count ($this->objects)."\n";
-		echo " Cantidad de conexiones con objetos: ".count ($this->objectsByOwner)."\n";
+		echo "Objeto creado [id: $object->id]\n";
 	}
 
 	private function notifyObjectStatus ($object) {
@@ -231,7 +228,7 @@ class WorldServer {
 
 	public function destroyObject ($msg, $conn) {
 		if (isset ($this-> objectsById[$msg-> id])) {
-			echo "Objeto destruido\n";
+			echo "Objeto destruido [id: $msg->id]\n";
 			$this-> removeObject ($this-> objectsById[$msg-> id], $conn);
 		}
 	}

@@ -1,0 +1,25 @@
+{
+	"description": "Detective",
+	"color": "#42f",
+	"attribs": {
+		"material": "meat",
+		"species": "human",
+		"isCharacter": true,
+		"isObject": false,
+		"isSolid": true
+	},
+	"tileset": {
+		"url": "/res/characters/detective/tileset.png",
+		"tile_size": [30, 36]
+		},
+	"sprites": {
+		"idle_down": [[0,0]],
+		"idle_up": [[2,1]],
+		"idle_right": [[2,2]],
+		"idle_left": [[0,3]],
+		"walking_down": [[1,0], [2,0]],
+		"walking_up": [[0,1], [1,1]],
+		"walking_right": [[0,2], [1,2]],
+		"walking_left": [[1,3], [2,3]]
+	}
+}

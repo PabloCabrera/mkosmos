@@ -1,6 +1,7 @@
 ResourceHandler = function () {
 	this.archetypes = {}
 	this.tilesets = {}
+	this.frameDuration = 250; // Esto es para los sprites animados
 }
 
 ResourceHandler.prototype.execOnArchetype = function (url, callback) {
@@ -51,20 +52,21 @@ ResourceHandler.prototype.hasTile = function (url) {
 	}
 }
 
-ResourceHandler.prototype.drawObject = function (object, canvas, x, y, width, height) {
+ResourceHandler.prototype.drawObject = function (object, canvas, x, y, width, height, time) {
 	if (object.archetype_url && object.current_sprite) {
-		this.drawTile (object.archetype_url, object.current_sprite, canvas, x, y, width, height);
+		this.drawTile (object.archetype_url, object.current_sprite, canvas, x, y, width, height, time);
 	}
 }
 
-ResourceHandler.prototype.drawTile = function (url, sprite, canvas, dx, dy, dwidth, dheight) {
+ResourceHandler.prototype.drawTile = function (url, sprite, canvas, dx, dy, dwidth, dheight, time) {
 	var archetype = this.archetypes[url];
 	if (archetype && archetype.sprites[sprite]) {
 		var tileset_url = archetype.tileset.url;
 		if (tileset_url && this.hasTile (tileset_url)) {
+			var frame = Math.floor(time/this.frameDuration) % archetype.sprites[sprite].length;
 			var tileset = this.tilesets[tileset_url].image;
-			var sx = archetype.sprites[sprite][0][0] * archetype.tileset.tile_size[0];
-			var sy = archetype.sprites[sprite][0][1] * archetype.tileset.tile_size[1];
+			var sx = archetype.sprites[sprite][frame][0] * archetype.tileset.tile_size[0];
+			var sy = archetype.sprites[sprite][frame][1] * archetype.tileset.tile_size[1];
 			var swidth = archetype.tileset.tile_size[0];
 			var sheight = archetype.tileset.tile_size[1];
 

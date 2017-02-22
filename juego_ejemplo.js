@@ -70,50 +70,54 @@ initKeyListeners = function () {
 
 pressLeft = function () {
 	player.object.speed_x = -2;
-	player.object.current_sprite = "walking_left";
 	player.pressingLeft = true;
+	updatePlayerSprite ();
 }
 
 releaseLeft = function () {
 	player.object.speed_x = 0;
 	player.pressingLeft = false;
 	player.lastPressed = "left";
+	updatePlayerSprite ();
 }
 
 pressRight = function () {
 	player.object.speed_x = 2;
-	player.object.current_sprite = "walking_right";
 	player.pressingRight = true;
+	updatePlayerSprite ();
 }
 
 releaseRight = function () {
 	player.object.speed_x = 0;
 	player.pressingRight = false;
 	player.lastPressed = "right";
+	updatePlayerSprite ();
 }
 
 pressUp = function () {
 	player.object.speed_y = -2;
-	player.object.current_sprite = "walking_up";
 	player.pressingUp = true;
+	updatePlayerSprite ();
 }
 
 releaseUp = function () {
 	player.object.speed_y = 0;
 	player.pressingUp = false;
 	player.lastPressed = "up";
+	updatePlayerSprite ();
 }
 
 pressDown = function () {
 	player.object.speed_y = 2;
-	player.object.current_sprite = "walking_down";
 	player.pressingDown = true;
+	updatePlayerSprite ();
 }
 
 releaseDown = function () {
 	player.object.speed_y = 0;
 	player.pressingDown = false;
 	player.lastPressed = "down";
+	updatePlayerSprite ();
 }
 
 pressSpace = function () {
@@ -161,7 +165,21 @@ onPlayerCreated = function (object) {
 }
 
 createPlayer = function (x, y, callback) {
-	area.createObject(x, y, 0.5, "/res/characters/magician/01.json", callback);
+	area.createObject(x, y, 0.5, "/res/characters/detective/01.json", callback);
+}
+
+updatePlayerSprite = function () {
+	if (player.object.speed_y > 0) {
+		player.object.current_sprite = "walking_down";
+	} else if (player.object.speed_y < 0) {
+		player.object.current_sprite = "walking_up";
+	} else if (player.object.speed_x < 0) {
+		player.object.current_sprite = "walking_left";
+	} else if (player.object.speed_x > 0) {
+		player.object.current_sprite = "walking_right";
+	} else {
+		player.object.current_sprite = "idle_"+player.lastPressed;
+	}
 }
 
 initPlayerConstraint = function () {
