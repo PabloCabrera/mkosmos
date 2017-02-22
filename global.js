@@ -1,6 +1,7 @@
 window.onload = function() {
 	area = new RemoteArea (CONFIG_SERVER_ADDRESS);
 	renderer = new CanvasRenderer (area);
+	renderer.drawImages = false;
 	renderer.setViewSize([128, 128]);
 	renderer.setRenderSize([600, 600]);
 	var container = document.getElementById ('global_map_section');

@@ -9,6 +9,7 @@ CanvasRenderer = function (area) {
 	this.mustExit = false;
 	this.followTarget = null;
 	this.followIntervalId = null;
+	this.drawImages = true;
 	area.setRenderer (this);
 }
 
@@ -128,7 +129,11 @@ CanvasRenderer.prototype.drawObjects = function () {
 
 /* Dibujar un objeto */
 CanvasRenderer.prototype.drawObject = function (object) {
-	if (this.area.resourceHandler.hasObjectSprite (object) && object.current_sprite){
+	if (
+		this.drawImages
+		&& this.area.resourceHandler.hasObjectSprite (object)
+		&& object.current_sprite
+	){
 		this.drawObjectImage (object);
 	} else {
 		this.drawObjectSimple (object);
