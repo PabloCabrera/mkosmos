@@ -9,7 +9,7 @@
 	<script type="application/javascript" src="jquery-3.1.1.min.js"></script>
 	<script type="application/javascript" src="src/RemoteArea.js"></script>
 	<script type="application/javascript" src="src/ObjectUpdater.js"></script>
-	<script type="application/javascript" src="src/CanvasAreaRenderer.js"></script>
+	<script type="application/javascript" src="src/CanvasRenderer.js"></script>
 	<script type="application/javascript" src="src/Surface.js"></script>
 	<script type="application/javascript" src="src/SVGTileFactory.js"></script>
 	<script type="application/javascript" src="src/ResourceHandler.js"></script>

@@ -10,7 +10,7 @@ player = {
 
 window.onload = function() {
 	area = new RemoteArea (CONFIG_SERVER_ADDRESS);
-	renderer = new CanvasAreaRenderer (area);
+	renderer = new CanvasRenderer (area);
 	renderer.setViewSize([20, 15]);
 	renderer.setRenderSize([800, 600]);
 	var container = document.getElementById ('game_container');
