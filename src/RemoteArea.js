@@ -245,7 +245,7 @@ RemoteArea.prototype.updateObject = function (obj) {
 		cached.speed_x = obj.speed_x;
 		cached.speed_y = obj.speed_y;
 		cached.radius = obj.radius;
-		cached.state = obj.state;
+		cached.current_sprite = obj.current_sprite;
 	}
 }
 

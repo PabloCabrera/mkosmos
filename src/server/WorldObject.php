@@ -9,7 +9,6 @@ class WorldObject {
 	public $y;
 	public $speed_x;
 	public $speed_y;
-	public $state;
 	private $owner;
 	public $current_sprite;
 	public $attribs;
@@ -28,7 +27,6 @@ class WorldObject {
 			$this-> archetype_url = $msg-> archetype_url;
 		}
 		$this-> owner = $conn;
-		$this-> state = "creating";
 	}
 
 	public function getOwner () {

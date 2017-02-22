@@ -220,9 +220,6 @@ class WorldServer {
 			if (isset ($msg-> speed_y)) {
 				$object-> speed_y = $msg-> speed_y;
 			}
-			if (isset ($msg-> state)) {
-				$object-> state = $msg-> state;
-			}
 			if (isset ($msg-> current_sprite)) {
 				$object-> current_sprite = $msg-> current_sprite;
 			}
