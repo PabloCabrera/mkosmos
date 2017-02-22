@@ -12,6 +12,7 @@
 	<script type="application/javascript" src="src/Surface.js"></script>
 	<script type="application/javascript" src="src/SVGTileFactory.js"></script>
 	<script type="application/javascript" src="src/ResourceHandler.js"></script>
+	<script type="application/javascript" src="src/CollisionChecker.js"></script>
 	<script type="application/javascript" src="juego_ejemplo.js"></script>
 	
 	<script src="jquery-3.1.1.min.js"></script>

@@ -67,15 +67,7 @@ ResourceHandler.prototype.drawTile = function (url, sprite, canvas, dx, dy, dwid
 			var sy = archetype.sprites[sprite][0][1] * archetype.tileset.tile_size[1];
 			var swidth = archetype.tileset.tile_size[0];
 			var sheight = archetype.tileset.tile_size[1];
-			/*console.log (
-				"tileset_url:"+tileset_url+
-				" offset_x:"+offset_x+
-				" offset_y:"+offset_y+
-				" x:"+x+
-				" y:"+y+
-				" tile_x:"+tile_x+
-				" tile_y:"+tile_y
-			);*/
+
 			canvas.drawImage (
 				tileset,
 				sx, sy,
@@ -86,4 +78,3 @@ ResourceHandler.prototype.drawTile = function (url, sprite, canvas, dx, dy, dwid
 		}
 	}
 }
-	

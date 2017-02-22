@@ -13,6 +13,8 @@ window.onload = function() {
 	renderer = new CanvasAreaRenderer (area);
 	renderer.setViewSize([20, 15]);
 	renderer.setRenderSize([800, 600]);
+	collision = new CollisionChecker ();
+	collision.start();
 	var container = document.getElementById ('game_container');
 	window.setTimeout (function(){
 		renderer.render (container, 20);
