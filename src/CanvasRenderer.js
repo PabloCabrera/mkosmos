@@ -104,7 +104,7 @@ CanvasRenderer.prototype.drawSurfaceRect = function (rect) {
 CanvasRenderer.prototype.drawTile = function (surface, x, y) {
 	var pos = this.coordTranslate (x, y);
 	if (pos != null) {
-		this.canvasContext.fillStyle = SVGTileFactory.getTileColor (surface);
+		this.canvasContext.fillStyle = TileFactory.getTileColor (surface);
 		this.canvasContext.fillRect (pos.x, pos.y, this.tileScale[0], this.tileScale[1]);
 	}
 	
