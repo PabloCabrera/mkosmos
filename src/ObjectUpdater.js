@@ -25,7 +25,8 @@ ObjectUpdater.prototype.sendUpdateMsg = function () {
 		x: this.object.x,
 		y: this.object.y,
 		speed_x: this.object.speed_x,
-		speed_y: this.object.speed_y
+		speed_y: this.object.speed_y,
+		current_sprite: this.object.current_sprite
 	}
 
 	this.area.sendMessage (msg);

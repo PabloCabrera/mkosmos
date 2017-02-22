@@ -9,17 +9,17 @@
 		"isSolid": true
 	},
 	"tileset": {
-		"url": "/res/character/magician/tileset.png",
+		"url": "/res/characters/magician/tileset.png",
 		"tile_size": [30, 36]
 		},
 	"sprites": {
 		"idle_up": [[1,2]],
 		"idle_down": [[0,0]],
-		"idle_left": [[3,0]],
+		"idle_left": [[0,3]],
 		"idle_right": [[2,2]],
-		"walkinkg_up": [[1,1], [1,2], [1,3]],
-		"walkinkg_down": [[0,1], [0,2], [0,3]],
-		"walkinkg_left": [[3,1], [3,2], [3,3]],
-		"walkinkg_right": [[2,1], [2,2], [2,3]]
+		"walking_up": [[0,1], [1,1], [2,1]],
+		"walking_down": [[0,0], [1,0], [2,0]],
+		"walking_left": [[0,3], [1,3], [2,3]],
+		"walking_right": [[0,2], [1,2], [2,2]]
 	}
 }

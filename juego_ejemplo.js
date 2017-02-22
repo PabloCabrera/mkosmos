@@ -70,6 +70,7 @@ initKeyListeners = function () {
 
 pressLeft = function () {
 	player.object.speed_x = -2;
+	player.object.current_sprite = "walking_left";
 	player.pressingLeft = true;
 }
 
@@ -81,6 +82,7 @@ releaseLeft = function () {
 
 pressRight = function () {
 	player.object.speed_x = 2;
+	player.object.current_sprite = "walking_right";
 	player.pressingRight = true;
 }
 
@@ -92,6 +94,7 @@ releaseRight = function () {
 
 pressUp = function () {
 	player.object.speed_y = -2;
+	player.object.current_sprite = "walking_up";
 	player.pressingUp = true;
 }
 
@@ -103,6 +106,7 @@ releaseUp = function () {
 
 pressDown = function () {
 	player.object.speed_y = 2;
+	player.object.current_sprite = "walking_down";
 	player.pressingDown = true;
 }
 
@@ -148,6 +152,7 @@ searchSurface = function (surface) {
 
 onPlayerCreated = function (object) {
 	player.object = object;
+	object.current_sprite = "idle_down";
 	renderer.goTo (object.x-10, object.y-8)
 	renderer.follow (object);
 }

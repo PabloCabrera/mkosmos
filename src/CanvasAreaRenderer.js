@@ -127,6 +127,16 @@ CanvasAreaRenderer.prototype.drawObjects = function () {
 
 /* Dibujar un objeto */
 CanvasAreaRenderer.prototype.drawObject = function (object) {
+	if (area.resourceHandler.hasObjectSprite (object) && object.current_sprite){
+		//FIXME global variable area
+		this.drawObjectImage (object);
+	} else {
+		this.drawObjectSimple (object);
+	}
+}
+
+/* Dibujar un objeto */
+CanvasAreaRenderer.prototype.drawObjectSimple = function (object) {
 	var drawX = (object.x - this.viewOrigin[0]) * this.tileScale[0];
 	var drawY = (object.y - this.viewOrigin[1]) * this.tileScale[1];
 	var radius = object.radius * this.tileScale[0];
@@ -138,7 +148,15 @@ CanvasAreaRenderer.prototype.drawObject = function (object) {
 		this.canvasContext.fillStyle = 'red';
 	}
 	this.canvasContext.fill();
-	this.canvasContext.closePath();
+	this.canvasContext.closePath();}
+
+/* Dibujar un objeto */
+CanvasAreaRenderer.prototype.drawObjectImage = function (object) {
+	var drawX = (object.x - this.viewOrigin[0] - object.radius) * this.tileScale[0];
+	var drawY = (object.y - this.viewOrigin[1] - object.radius) * this.tileScale[1];
+	var drawWidth = 2* object.radius * this.tileScale[0];
+	var drawHeight = 2* object.radius * this.tileScale[1];
+	area.resourceHandler.drawObject (object, renderer.canvasContext, drawX, drawY, drawWidth, drawHeight); //FIXME usando variables global area y renderer
 }
 
 /* Traducir las coordenadas del mapa a las coordenadas del canvas */
