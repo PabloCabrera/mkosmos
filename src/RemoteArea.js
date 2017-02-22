@@ -12,8 +12,8 @@ RemoteArea = function (uri) {
 	this.requestCallbacks = [];
 	this.ownObjects = [];
 	this.lastRequestId = 0;
-	this.resourceHandler = new ResourceHandler();
-	this.collisionChecker = new CollisionChecker();
+	this.resourceHandler = new ResourceHandler ();
+	this.collisionChecker = new CollisionChecker (this.objects);
 	this.renderer = null;
 	
 	var self = this;

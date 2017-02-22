@@ -155,6 +155,9 @@ onPlayerCreated = function (object) {
 	object.current_sprite = "idle_down";
 	renderer.goTo (object.x-10, object.y-8)
 	renderer.follow (object);
+	area.collisionChecker.addCheckByAttribute (object, "isSolid", true, function (obj, target) {
+		console.log ("Objeto id:"+ obj.id +" ha con objeto solido id:"+target.id);
+	});
 }
 
 createPlayer = function (x, y, callback) {
