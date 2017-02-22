@@ -17,7 +17,6 @@ CanvasRenderer = function (area) {
 CanvasRenderer.prototype.setZoomLevel = function (zoomLevel) {
 	this.setViewSize ([20/zoomLevel, (20/zoomLevel)*(this.renderSize[1]/this.renderSize[0])]);
 	this.adjust();
-	//this.refresh();
 }
 
 /* Iniciar el dibujado continuo */
@@ -186,8 +185,6 @@ CanvasRenderer.prototype.goToPosition = function (destination) {
 CanvasRenderer.prototype.goTo = function (x, y) {
 	this.viewOrigin[0] = x;
 	this.viewOrigin[1] = y;
-	this.adjust();
-	//this.refresh();
 }
 
 /* Seguir a un objeto particular */
@@ -200,7 +197,7 @@ CanvasRenderer.prototype.follow = function (target) {
 		var destination_x = target.x - shiftLeft;
 		var destination_y = target.y - shiftTop;
 		self.goTo (destination_x, destination_y);
-	}, 2000);
+	}, 80);
 }
 
 /* Dejar de seguir a un objeto */
@@ -217,7 +214,6 @@ CanvasRenderer.prototype.move = function (x, y) {
 	this.viewOrigin[0] += x;
 	this.viewOrigin[1] += y;
 	this.adjust();
-	//this.refresh();
 }
 
 /* Establecer la esquina superior izquierda de la vista en el area
