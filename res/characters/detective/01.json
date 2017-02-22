@@ -20,6 +20,9 @@
 		"walking_down": [[1,0], [2,0]],
 		"walking_up": [[0,1], [1,1]],
 		"walking_right": [[0,2], [1,2]],
-		"walking_left": [[1,3], [2,3]]
+		"walking_left": [[1,3], [2,3]],
+		"dying_01": [[0,4]],
+		"dying_02": [[1,4]],
+		"dying_03": [[2,4]]
 	}
 }

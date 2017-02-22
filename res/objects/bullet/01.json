@@ -1,0 +1,11 @@
+{
+	"description": "Bullet",
+	"color": "#000",
+	"attribs": {
+		"material": "lead",
+		"isCharacter": false,
+		"isObject": true,
+		"isSolid": true,
+		"isKiller": true
+	}
+}

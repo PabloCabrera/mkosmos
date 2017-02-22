@@ -294,6 +294,9 @@ RemoteArea.prototype.insertObject = function (obj) {
 
 RemoteArea.prototype.removeObject = function (id) {
 	if (this.objects[id] != undefined) {
+		if (this.collisionChecker) {
+			this.collisionChecker.removeChecksForObject (this.objects [id]);
+		}
 		this.objects.splice (id, 1);
 	}
 	if (this.ownObjects[id] != undefined) {

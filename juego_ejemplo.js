@@ -1,11 +1,12 @@
 player = {
 	moveX: 0,
 	moveY: 0,
-	lastPressed:"up",
+	lastPressed:"down",
 	pressingUp: false,
 	pressingDown: false,
 	pressingLeft: false,
-	pressingRight: false
+	pressingRight: false,
+	dead: false
 }
 
 window.onload = function() {
@@ -16,9 +17,15 @@ window.onload = function() {
 	var container = document.getElementById ('game_container');
 	window.setTimeout (function(){
 		renderer.render (container, 20);
+		initArchetypes ();
 		initKeyListeners ();
 		initPlayer();
 	}, 1000);
+}
+
+initArchetypes = function () {
+		area.resourceHandler.preloadArchetype ("/res/characters/detective/01.json")
+		area.resourceHandler.preloadArchetype ("res/objects/bullet/01.json")
 }
 
 initKeyListeners = function () {
@@ -69,12 +76,14 @@ initKeyListeners = function () {
 }
 
 pressLeft = function () {
+	if (player.dead) { return null; }
 	player.object.speed_x = -2;
 	player.pressingLeft = true;
 	updatePlayer ();
 }
 
 releaseLeft = function () {
+	if (player.dead) { return null; }
 	player.object.speed_x = 0;
 	player.pressingLeft = false;
 	player.lastPressed = "left";
@@ -82,12 +91,14 @@ releaseLeft = function () {
 }
 
 pressRight = function () {
+	if (player.dead) { return null; }
 	player.object.speed_x = 2;
 	player.pressingRight = true;
 	updatePlayer ();
 }
 
 releaseRight = function () {
+	if (player.dead) { return null; }
 	player.object.speed_x = 0;
 	player.pressingRight = false;
 	player.lastPressed = "right";
@@ -95,12 +106,14 @@ releaseRight = function () {
 }
 
 pressUp = function () {
+	if (player.dead) { return null; }
 	player.object.speed_y = -2;
 	player.pressingUp = true;
 	updatePlayer ();
 }
 
 releaseUp = function () {
+	if (player.dead) { return null; }
 	player.object.speed_y = 0;
 	player.pressingUp = false;
 	player.lastPressed = "up";
@@ -108,12 +121,14 @@ releaseUp = function () {
 }
 
 pressDown = function () {
+	if (player.dead) { return null; }
 	player.object.speed_y = 2;
 	player.pressingDown = true;
 	updatePlayer ();
 }
 
 releaseDown = function () {
+	if (player.dead) { return null; }
 	player.object.speed_y = 0;
 	player.pressingDown = false;
 	player.lastPressed = "down";
@@ -124,6 +139,7 @@ pressSpace = function () {
 }
 
 releaseSpace = function () {
+	if (player.dead) { return null; }
 	playerShoot();
 }
 
@@ -159,9 +175,25 @@ onPlayerCreated = function (object) {
 	object.current_sprite = "idle_down";
 	renderer.goTo (object.x-10, object.y-8)
 	renderer.follow (object);
-	area.collisionChecker.addCheckByAttribute (object, "isSolid", true, function (obj, target) {
-		console.log ("Objeto id:"+ obj.id +" ha con objeto solido id:"+target.id);
+	area.collisionChecker.addCheckByAttribute (object, "isKiller", true, function (obj, target) {
+		playerDie();
 	});
+}
+
+playerDie = function () {
+	player.dead = true;
+	player.object.speed_x = 0;
+	player.object.speed_y = 0;
+	player.object.current_sprite = "dying_01";
+	player.object.updater.update();
+	window.setTimeout (function () {
+		player.object.current_sprite = "dying_02";
+		player.object.updater.update();
+	}, 1000);
+	window.setTimeout (function () {
+		player.object.current_sprite = "dying_03";
+		player.object.updater.update();
+	}, 3000);
 }
 
 createPlayer = function (x, y, callback) {
@@ -226,10 +258,10 @@ initPlayerConstraint = function () {
 playerShoot = function () {
 	var orientation = getPlayerOrientation();
 	area.createObject (
-		player.object.x, player.object.y, //position
+		player.object.x+orientation[0], player.object.y+orientation[1], //position
 		orientation[0]*5, orientation[1]*5, //speed
 		0.1, //radius
-		null, //archetype
+		"res/objects/bullet/01.json", //archetype
 		function (obj){ //run on creation successful
 			window.setTimeout (function () {
 				area.destroyObject (obj);

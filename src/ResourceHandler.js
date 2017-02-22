@@ -4,6 +4,20 @@ ResourceHandler = function () {
 	this.frameDuration = 250; // Esto es para los sprites animados
 }
 
+ResourceHandler.prototype.preloadArchetype = function (url) {
+	var self = this;
+		$.ajax (url, {
+			method: "GET",
+			dataType: "json",
+		  	success: function (data) {
+				self.archetypes [url] = data;
+				if (data.tileset && data.tileset.url) {
+					self.loadTile (data.tileset.url);
+				}
+			},
+		});
+}
+
 ResourceHandler.prototype.execOnArchetype = function (url, callback) {
 	if (this.archetypes[url] != undefined) {
 		callback (this.archetypes [url]);
