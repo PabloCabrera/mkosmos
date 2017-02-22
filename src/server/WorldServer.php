@@ -220,10 +220,10 @@ class WorldServer {
 			if (isset ($msg-> current_sprite)) {
 				$object-> current_sprite = $msg-> current_sprite;
 			}
+
+			$this-> notifyObjectStatus ($object);
 		}
 
-		$this-> notifyObjectStatus ($object);
-		//echo "Se ha actualizado objeto con id " . $msg-> id ."\n";
 	}
 
 	public function destroyObject ($msg, $conn) {
