@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 require_once 'vendor/autoload.php';
 require_once 'Controller.php';
 require_once 'WorldServer.php';
@@ -11,7 +12,6 @@ use Ratchet\WebSocket\WsServer;
 const MAP_WIDTH = 128;
 const MAP_HEIGHT = 128;
 const MAP_FILENAME = "worldfile.json";
-const SERVER_PORT = 443;
 
 $controller = new Controller();
 $worldServer = WorldGenerator::generateIslands (MAP_WIDTH, MAP_HEIGHT);
