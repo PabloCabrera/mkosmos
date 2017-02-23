@@ -3,6 +3,7 @@
 	<meta charset="utf-8" />
 	<title>μ-κosmos: Mapa del mundo</title>
 	<link rel="stylesheet" type="text/css" href="shared.css" />
+	<link rel="stylesheet" type="text/css" href="editor.css" />
 	<script src="index.js"></script>
 	<script src="jquery-3.1.1.min.js"></script>
 	<script type="application/javascript" src="config.js"></script>
@@ -15,21 +16,6 @@
 	<script type="application/javascript" src="src/ResourceHandler.js"></script>
 	<script type="application/javascript" src="src/CollisionChecker.js"></script>
 	<script type="application/javascript" src="global.js"></script>
-	<link rel="stylesheet" type="text/css" link="shared.css" />
-	<style>
-		canvas {
-			border: 1px solid black;
-			margin-left: auto;
-			margin-right: auto;
-
-		}
-		
-		.controllers {
-			float: right;
-			width: 200px;
-			text-align: center;
-		}
-	</style>
 </head>
 <body>
 
@@ -39,7 +25,9 @@
 	<div class="controllers">
 	<header>Editor de mapa</header>
 	<label for="surface_type">Tipo de terreno: </label>
+	<span id="surface_example"></span>
 	<select name="surface_type"></select>
+	<br>
 	<br>
 	<label for="brush_shape">Forma del pincel: </label>
 	<select name="brush_shape">

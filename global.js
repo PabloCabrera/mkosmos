@@ -15,13 +15,24 @@ window.onload = function() {
 initSurfaceSelect = function () {
 	var select = document.querySelector ("select[name=surface_type]");
 	for (surf in Surface) {
-		if (Surface.hasOwnProperty (surf)) {
+		if (
+			Surface.hasOwnProperty (surf) 
+			&& typeof (Surface[surf]) != "function"
+		) {
 			var opt = document.createElement ("OPTION");
 			opt.innerText = surf;
 			opt.value = Surface[surf];
 			select.appendChild (opt);
 		}
 	}
+	select.onchange = updateSurfaceExample;
+	updateSurfaceExample ();
+}
+
+updateSurfaceExample = function () {
+	var srf =  document.querySelector ("select[name=surface_type]").value;
+	var color = SurfaceColor[srf]
+	document.getElementById("surface_example").style.background = color;
 }
 
 initClickHandler = function () {
