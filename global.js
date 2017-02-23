@@ -37,9 +37,10 @@ updateSurfaceExample = function () {
 
 initClickHandler = function () {
 	var canvas = document.querySelector("#global_map_section canvas");
+	var rect = canvas.getBoundingClientRect()
 	canvas.addEventListener ("click",  function (event) {
-		var click_x = event.layerX-canvas.offsetLeft;
-		var click_y = event.layerY-canvas.offsetTop;
+		var click_x = event.pageX-rect.left;
+		var click_y = event.pageY-rect.top;
 		var tile_x = Math.floor((click_x / area.renderer.tileScale[0]) - area.renderer.viewOrigin[0]);
 		var tile_y = Math.floor((click_y / area.renderer.tileScale[1]) - area.renderer.viewOrigin[1]);
 		changeTile (tile_x, tile_y);
