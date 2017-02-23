@@ -1,0 +1,21 @@
+{
+	"description": "Jewel",
+	"color": "#ff0",
+	"attribs": {
+		"material": "metal",
+		"isCharacter": false,
+		"isObject": true,
+		"isSolid": true,
+		"isJewel": true
+	},
+	"tileset": {
+		"url": "/res/objects/items/objects.png",
+		"tile_size": [34, 34]
+	},
+	"sprites": {
+		"jewel01": [[6,4]],
+		"jewel02": [[7,4]],
+		"jewel03": [[8,4]],
+		"jewel04": [[9,4]]
+	}
+}

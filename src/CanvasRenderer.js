@@ -10,6 +10,7 @@ CanvasRenderer = function (area) {
 	this.followTarget = null;
 	this.followIntervalId = null;
 	this.drawImages = true;
+	this.textMessage = null;
 	area.setRenderer (this);
 }
 
@@ -94,6 +95,9 @@ CanvasRenderer.prototype.refresh = function () {
 	);
 
 	this.drawObjects();
+	if (this.textMessage != null) {
+		this.renderMessage (this.textMessage);
+	}
 }
 
 /* Dibujar un area rectangular */
@@ -271,11 +275,19 @@ CanvasRenderer.prototype.setRenderHeight = function (height) {
 
 /* Mostrar mensaje */
 CanvasRenderer.prototype.showMessage = function (text) {
+	this.textMessage = text;
+	var self = this;
+	window.setTimeout (function () {
+		self.textMessage = null;
+	}, 2000);
+}
+
+CanvasRenderer.prototype.renderMessage = function () {
 	this.canvasContext.font = "bold 24px Arial";
 	this.canvasContext.fillStyle = "#000";
 	this.canvasContext.strokeStyle = "#88f";
 	this.canvasContext.textAlign = "center";
 	this.canvasContext.textWeight = "bold";
-	this.canvasContext.strokeText (text, this.renderSize[0]/2, this.renderSize[1]/2);
-	this.canvasContext.fillText (text, this.renderSize[0]/2, this.renderSize[1]/2);
+	this.canvasContext.strokeText (this.textMessage, this.renderSize[0]/2, this.renderSize[1]/2);
+	this.canvasContext.fillText (this.textMessage, this.renderSize[0]/2, this.renderSize[1]/2);
 }

@@ -8,8 +8,11 @@ player = {
 	pressingRight: false,
 	dead: false,
 	shootTime: 0,
-	bombPlantedTime: 0
+	bombPlantedTime: 0,
+	foundJewels: 0
 }
+
+game_jewels = [];
 
 window.onload = function() {
 	area = new RemoteArea (CONFIG_SERVER_ADDRESS);
@@ -21,7 +24,8 @@ window.onload = function() {
 		renderer.render (container, 20);
 		initArchetypes ();
 		initKeyListeners ();
-		initPlayer();
+		initPlayer ();
+		initJewels ();
 	}, 1000);
 }
 
@@ -30,6 +34,7 @@ initArchetypes = function () {
 		area.resourceHandler.preloadArchetype ("/res/objects/bullet/01.json")
 		area.resourceHandler.preloadArchetype ("/res/objects/bomb/01.json")
 		area.resourceHandler.preloadArchetype ("/res/objects/explosion/01.json")
+		area.resourceHandler.preloadArchetype ("/res/objects/jewel/01.json")
 }
 
 initKeyListeners = function () {
@@ -155,16 +160,27 @@ releaseB = function () {
 }
 
 initPlayer = function () {
-	var initialPos = searchSurface (Surface.GRASS);
+	var initialPos = searchSolidSurface ();
 	if (initialPos == null) {
-		window.alert ("No se puede iniciar el juego, no hay pasto donde pisar.");
+		window.alert ("No se puede iniciar el juego, no superficie solida donde pisar.");
 	} else {
 		createPlayer (initialPos[0], initialPos[1], onPlayerCreated);
 		initPlayerConstraint();
 	}
 }
 
-searchSurface = function (surface) {
+initJewels = function () {
+	for (var jewel_number=0; jewel_number<4; jewel_number++) {
+		window.setTimeout (function () {
+			var pos = searchSolidSurface ();
+			if (pos != null) {
+				createJewel (pos[0], pos[1], onJewelCreated);
+			}
+		} , (jewel_number+1)*100);
+	}
+}
+
+searchSolidSurface = function (surface) {
 	var x;
 	var y;
 	var found = false;
@@ -172,7 +188,7 @@ searchSurface = function (surface) {
 	while (!found && retries < 10000) {
 		x = Math.floor (Math.random()*area.width);
 		y = Math.floor (Math.random()*area.height);
-		if (area.getSurfaceAt(x, y) == surface) {
+		if (Surface.isSolid (area.getSurfaceAt (x, y))) {
 			found = true;
 			return [x, y];
 		}
@@ -188,6 +204,12 @@ onPlayerCreated = function (object) {
 	renderer.follow (object);
 	area.collisionChecker.addCheckByAttribute (object, "isKiller", true, function (obj, target) {
 		playerDie();
+	});
+	area.collisionChecker.addCheckByAttribute (object, "isJewel", true, function (obj, target) {
+		if (isJewelForeign (target)){
+			area.collisionChecker.removeCheck (obj, target);
+			area.renderer.showMessage ("Esta no es la joya que estoy buscando");
+		};
 	});
 }
 
@@ -213,10 +235,10 @@ playerDie = function () {
 		player.object.updater = null;
 		area.renderer.stopFollow ();
 		area.renderer.stopRenderLoop ();
-	}, 4000);
+	}, 3500);
 
 	window.setTimeout (function () {
-		window.alert ("GAME OVER");;
+		area.renderer.showMessage ("GAME OVER");;
 	}, 5000);
 }
 
@@ -374,4 +396,43 @@ getPlayerOrientation = function () {
 		return [orient_x, orient_y];
 	}
 
+}
+
+createJewel = function (x, y, callback) {
+	area.createObject(
+		x, y, //position
+		0, 0, //speed
+		0.3, //radius
+		"/res/objects/jewel/01.json", //archetype
+		callback //run on creation successful
+	);
+}
+
+onJewelCreated = function (jewel) {
+	game_jewels.push (jewel);
+	jewel.current_sprite = "jewel0"+game_jewels.length;
+	jewel.updater.update ();
+	area.collisionChecker.addCheck (jewel, player.object, function (jewel, detective) {
+		area.collisionChecker.removeCheck (jewel, detective);
+		area.destroyObject (jewel);
+		player.foundJewels++;
+		if (player.foundJewels == 4) {
+			area.renderer.showMessage ("Encontraste todas las Joyas! ");
+			player.foundJewels=0;
+			game_jewels = [];
+			initJewels ();
+		} else {
+			area.renderer.showMessage ("Joyas encontradas: "+player.foundJewels);
+		}
+	});
+}
+
+isJewelForeign = function (jewel) {
+	var foreign = true;
+	game_jewels.forEach (function (game_jewel) {
+		if (jewel.id == game_jewel.id) {
+			foreign = false;
+		}
+	});
+	return foreign;
 }
