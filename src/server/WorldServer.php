@@ -58,6 +58,9 @@ class WorldServer {
 
 	public function setSurfaceAt ($x, $y, $surface) {
 		$this-> map [$x* $this-> width + $y] = $surface;
+
+		$updatedRect = ($this-> getSurfaceRect ($x, $y, $x, $y));
+		$this-> notifySurfaceChange ($updatedRect);
 	}
 
 	public function setSurfaceRect ($left, $top, $right, $bottom, $surface) {

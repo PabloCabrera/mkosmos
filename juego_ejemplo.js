@@ -320,9 +320,11 @@ playerPlantBomb = function () {
 }
 
 bombExplode = function (bomb) {
+	var x = bomb.x;
+	var y = bomb.y;
 	area.destroyObject (bomb);
 	area.createObject (
-		bomb.x, bomb.y, //position
+		x, y, //position
 		0, 0, //speed
 		3, //radius
 		"res/objects/explosion/01.json", //archetype
@@ -332,6 +334,11 @@ bombExplode = function (bomb) {
 			window.setTimeout (function () {
 				area.destroyObject (obj);
 			}, 1000);
+			var surface = area.getSurfaceAt (Math.floor(x), Math.floor(y));
+			if (Surface.isSolid (surface)) {
+				area.setSurfaceCircle (Math.floor (x), Math.floor (y), 1, Surface.SAND);
+				area.setSurfaceAt (Math.floor (x), Math.floor (y), Surface.COBBLE);
+			}
 		}
 	);
 }
