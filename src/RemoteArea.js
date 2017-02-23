@@ -202,6 +202,8 @@ RemoteArea.prototype.setSurfaceCirclePosition = function (position, radius, surf
 
 /* Establecer el tipo de superficie en un area circular */
 RemoteArea.prototype.setSurfaceCircle = function (x, y, radius, surface) {
+	console.log ("setSurfaceCirlce surface="+surface);
+	debug_surface = surface;
 	var msg = {
 		entity: "surface",
 		action: "set",

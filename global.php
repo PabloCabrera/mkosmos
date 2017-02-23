@@ -37,10 +37,18 @@
 
 	<section id="global_map_section">
 	<div class="controllers">
+	<header>Editor de mapa</header>
+	<label for="surface_type">Tipo de terreno: </label>
+	<select name="surface_type"></select>
 	<br>
+	<label for="brush_shape">Forma del pincel: </label>
+	<select name="brush_shape">
+		<option value="square">Cuadrado</option>
+		<option value="circle">Redondo</option>
+	</select>
 	<br>
-	<button onclick="generateCircle()">Generar circulo</button>
-	<button onclick="generateRect()">Generar rectangulo</button>
+	<label for="brush_size">Tama&ntilde;o del pincel: </label>
+	<input name="brush_size" type="number" value="4" min="1" max="128" step="1">
 	<br>
 	</section>
 	<?php include "footer.php"; ?>

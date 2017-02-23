@@ -47,14 +47,14 @@ class Controller implements MessageComponentInterface {
 		if (isset ($msg-> shape)) {
 			switch ($msg-> shape) {
 				case "rectangle":
-					$this-> worldServer-> setSurfaceRect ($msg->left, $msg->top, $msg->right, $msg->bottom, $msg->surface);
+					$this-> worldServer-> setSurfaceRect ($msg->left, $msg->top, $msg->right, $msg->bottom, chr ((int) $msg->surface));
 					break;
 				case "circle":
-					$this-> worldServer-> setSurfaceCircle ($msg->x, $msg->y, $msg->radius, $msg->surface);
+					$this-> worldServer-> setSurfaceCircle ($msg->x, $msg->y, $msg->radius, chr ((int) $msg->surface));
 					break;
 			}
 		} else {
-			$this-> worldServer-> setSurfaceAt ($msg->x, $msg->y, $msg->surface);
+			$this-> worldServer-> setSurfaceAt ($msg->x, $msg->y, chr((int) $msg->surface));
 		}
 	}
 
