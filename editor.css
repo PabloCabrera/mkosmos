@@ -61,7 +61,17 @@ canvas {
 	text-align: right;
 }
 
-@media (min-width: 900px)  {
+@media (min-width: 1200px)  {
+
+	.controllers {
+			float: right;
+			width: 400px;
+			text-align: left;
+			font-size: 12px;
+		}
+}
+
+@media (min-width: 900px) and (max-width: 1199px)  {
 
 	.controllers {
 			float: right;
@@ -76,8 +86,11 @@ canvas {
 	.controllers {
 			display: block;
 			width: 100%;
+			max-width: 600px;
 			text-align: left;
 			font-size: 16px;
 			margin-bottom: 24px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 }
