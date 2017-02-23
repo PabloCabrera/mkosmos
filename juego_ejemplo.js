@@ -6,7 +6,8 @@ player = {
 	pressingDown: false,
 	pressingLeft: false,
 	pressingRight: false,
-	dead: false
+	dead: false,
+	bombPlantedTime: 0
 }
 
 window.onload = function() {
@@ -25,7 +26,9 @@ window.onload = function() {
 
 initArchetypes = function () {
 		area.resourceHandler.preloadArchetype ("/res/characters/detective/01.json")
-		area.resourceHandler.preloadArchetype ("res/objects/bullet/01.json")
+		area.resourceHandler.preloadArchetype ("/res/objects/bullet/01.json")
+		area.resourceHandler.preloadArchetype ("/res/objects/bomb/01.json")
+		area.resourceHandler.preloadArchetype ("/res/objects/explosion/01.json")
 }
 
 initKeyListeners = function () {
@@ -70,6 +73,9 @@ initKeyListeners = function () {
 				break;
 			case 32: //Espacio
 				releaseSpace();
+				break;
+			case 66: //b
+				releaseB();
 				break;
 		}
 	}
@@ -143,6 +149,10 @@ releaseSpace = function () {
 	playerShoot();
 }
 
+releaseB = function () {
+	playerPlantBomb();
+}
+
 initPlayer = function () {
 	var initialPos = searchSurface (Surface.GRASS);
 	if (initialPos == null) {
@@ -186,6 +196,7 @@ playerDie = function () {
 	player.object.speed_y = 0;
 	player.object.current_sprite = "dying_01";
 	player.object.updater.update();
+	area.collisionChecker.removeChecksForObject (player.object);
 
 	window.setTimeout (function () {
 		player.object.current_sprite = "dying_02";
@@ -275,6 +286,44 @@ playerShoot = function () {
 		0.1, //radius
 		"res/objects/bullet/01.json", //archetype
 		function (obj){ //run on creation successful
+			window.setTimeout (function () {
+				area.destroyObject (obj);
+			}, 1000);
+		}
+	);
+}
+
+playerPlantBomb = function () {
+	var now = Date.now ();
+	if ((now - player.bombPlantedTime) > 2000) {
+		player.bombPlantedTime = now;
+		var orientation = getPlayerOrientation ();
+		area.createObject (
+			player.object.x-orientation[0], player.object.y-orientation[1], //position
+			0, 0, //speed
+			0.3, //radius
+			"res/objects/bomb/01.json", //archetype
+			function (obj){ //run on creation successful
+			obj.current_sprite = "bomb";
+			obj.updater.update ();
+				window.setTimeout (function () {
+					bombExplode (obj);
+				}, 2000);
+			}
+		);
+	}
+}
+
+bombExplode = function (bomb) {
+	area.destroyObject (bomb);
+	area.createObject (
+		bomb.x, bomb.y, //position
+		0, 0, //speed
+		3, //radius
+		"res/objects/explosion/01.json", //archetype
+		function (obj){ //run on creation successful
+			obj.current_sprite = "explosion";
+			obj.updater.update ();
 			window.setTimeout (function () {
 				area.destroyObject (obj);
 			}, 1000);

@@ -1,0 +1,18 @@
+{
+	"description": "Explosion",
+	"color": "#000",
+	"attribs": {
+		"material": "tnt",
+		"isCharacter": false,
+		"isObject": true,
+		"isSolid": true,
+		"isKiller": false
+	},
+	"tileset": {
+		"url": "/res/objects/bomb/tileset.png",
+		"tile_size": [40, 40]
+	},
+	"sprites": {
+		"bomb": [[0,0], [1,0], [2,0], [3,0]]
+	}
+}
