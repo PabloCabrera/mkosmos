@@ -17,6 +17,7 @@
 		<article class="minigame">
 			<h2>Un detective en problemas</a></h2>
 			<img src="juego_detective.png">
+			<p>Tu misión es encontrar las joyas robadas. ¡Pero cuidado! Otros detectives estan buscandote para asesinarte.</p>
 			<h3>Teclas</h3>
 			<stroke>Flecha Arriba:</stroke> Caminar hacia arriba<br>
 			<stroke>Flecha Abajo:</stroke> Caminar hacia abajo<br>
