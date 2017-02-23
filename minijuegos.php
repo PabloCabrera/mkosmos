@@ -25,7 +25,7 @@
 			<stroke>Flecha derecha:</stroke> Caminar hacia la derecha<br>
 			<stroke>Barra espaciadora:</stroke> Disparar<br>
 			<stroke>B:</stroke> Poner bomba<br>
-			<a class="playButton" href="juego_ejemplo.php">Jugar!</a>
+			<a class="playButton" href="juego_detective.php">Jugar!</a>
 		</article>
 	</section>
 	<?php include "footer.php"; ?>
