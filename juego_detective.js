@@ -322,7 +322,7 @@ playerShoot = function () {
 
 playerPlantBomb = function () {
 	var now = Date.now ();
-	if ((now - player.bombPlantedTime) > 3500) {
+	if ((!player.dead) &&(now - player.bombPlantedTime) > 3500) {
 		player.bombPlantedTime = now;
 		var orientation = getPlayerOrientation ();
 		area.createObject (
