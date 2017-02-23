@@ -26,6 +26,11 @@ CanvasRenderer.prototype.startRenderLoop = function (maxFps) {
 	this.renderStep()
 }
 
+/* Detener el dibujado continuo */
+CanvasRenderer.prototype.stopRenderLoop = function () {
+	this.mustExit = true;
+}
+
 CanvasRenderer.prototype.renderStep = function () {
 	var beforeRender = Date.now ();
 	this.area.recalcObjectPositions (beforeRender);

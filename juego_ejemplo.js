@@ -12,7 +12,7 @@ player = {
 window.onload = function() {
 	area = new RemoteArea (CONFIG_SERVER_ADDRESS);
 	renderer = new CanvasRenderer (area);
-	renderer.setViewSize([20, 15]);
+	renderer.setViewSize([16, 12]);
 	renderer.setRenderSize([800, 600]);
 	var container = document.getElementById ('game_container');
 	window.setTimeout (function(){
@@ -186,14 +186,26 @@ playerDie = function () {
 	player.object.speed_y = 0;
 	player.object.current_sprite = "dying_01";
 	player.object.updater.update();
+
 	window.setTimeout (function () {
 		player.object.current_sprite = "dying_02";
 		player.object.updater.update();
 	}, 1000);
+
 	window.setTimeout (function () {
 		player.object.current_sprite = "dying_03";
 		player.object.updater.update();
 	}, 3000);
+
+	window.setTimeout (function () {
+		player.object.updater = null;
+		area.renderer.stopFollow ();
+		area.renderer.stopRenderLoop ();
+	}, 4000);
+
+	window.setTimeout (function () {
+		window.alert ("GAME OVER");;
+	}, 5000);
 }
 
 createPlayer = function (x, y, callback) {
