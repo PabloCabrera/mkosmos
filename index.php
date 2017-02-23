@@ -12,7 +12,10 @@
 	<?php include "nav.php"; ?>
 
 	<section id="sectionJugar">
-		<div id="scroller"> Empezar a jugar!</div>
+			
+		<a href="/minijuegos.php">
+			<div id="preview">Empezar a jugar!</div>
+		</a>
 
 		<p>Un mundo totalmente dinámico con multiples mini-juegos desarrollandose al mismo tiempo.</p>
 		<p>En este mundo se crean y destruyen todo el tiempo personajes y objetos, los cuales pueden interactuar entre si, y con el terreno.</p>
