@@ -1,3 +1,28 @@
+@media (min-width: 900px) {
+	section#minijuegos{
+		display: flex;
+	}
+
+	article.minigame {
+		width: 400px;
+		position: relative;
+		padding-bottom: 64px !important;
+	}
+
+	article.minigame a.playButton {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+	}
+}	
+
+@media (max-width: 899px) {
+	article.minigame {
+	display: block;
+	}
+}
+
 article.minigame {
 	font-weight: normal;
 	background: #ccc;
@@ -5,6 +30,7 @@ article.minigame {
 	border-radius: 8px;
 	box-shadow: 0px 0px 4px black;
 	font-size: 14px;
+	margin: 8px;
 }
 
 article.minigame stroke {

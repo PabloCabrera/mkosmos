@@ -12,11 +12,7 @@
 		margin-top: 12px;
 		margin-bottom: 12px;
 	}
-	article.minigame {
-		display: inline-block;
-		width: 400px;
-	}
-}	
+}
 
 @media (max-width: 899px) {
 	body > header {
@@ -30,10 +26,7 @@
 	h1 {
 		font-size: 24px;
 	}
-	article.minigame {
-		display: block;
-	}
-}	
+}
 
 body {
 	background: #46f;

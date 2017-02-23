@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <head>
 	<meta charset="utf-8" />
-	<title>μ-κosmos: Juego Detective</title>
+	<title>μ-κosmos: Juego Allosaurus</title>
 	<link rel="stylesheet" type="text/css" href="shared.css" />
 	<link rel="stylesheet" type="text/css" href="juegos.css" />
 	<script type="application/javascript" src="config.js"></script>
@@ -13,7 +13,7 @@
 	<script type="application/javascript" src="src/TileFactory.js"></script>
 	<script type="application/javascript" src="src/ResourceHandler.js"></script>
 	<script type="application/javascript" src="src/CollisionChecker.js"></script>
-	<script type="application/javascript" src="juego_detective.js"></script>
+	<script type="application/javascript" src="juego_allosaurus.js"></script>
 	
 	<script src="jquery-3.1.1.min.js"></script>
 </head>

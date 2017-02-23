@@ -1,6 +1,6 @@
 {
-	"description": "",
-	"color": "#42f",
+	"description": "Allosaurus",
+	"color": "#880",
 	"attribs": {
 		"material": "meat",
 		"species": "allosaurus",
@@ -23,6 +23,6 @@
 		"dying_03": [[2,2]],
 		"dying_04": [[3,2]],
 		"dying_05": [[4,2]],
-		"egg": [[0,0]]
+		"egg": [[5,2]]
 	}
 }
