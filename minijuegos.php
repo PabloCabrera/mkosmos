@@ -29,7 +29,7 @@
 		</article>
 
 		<article class="minigame">
-			<h2>Comer Prehistrico</h2>
+			<h2>Comer Prehistórico</h2>
 			<img src="juego_allosaurus.png">
 			<p>Come todo a tu paso</p>
 			<h3>Teclas</h3>
