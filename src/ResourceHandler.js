@@ -28,7 +28,7 @@ ResourceHandler.prototype.execOnArchetype = function (url, callback) {
 			dataType: "json",
 		  	success: function (data) {
 				self.archetypes [url] = data;
-				if (data.tileset.url) {
+				if (data.tileset && data.tileset.url) {
 					self.loadTile (data.tileset.url);
 				}
 				callback (data);

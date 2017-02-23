@@ -7,6 +7,7 @@ player = {
 	pressingLeft: false,
 	pressingRight: false,
 	dead: false,
+	shootTime: 0,
 	bombPlantedTime: 0
 }
 
@@ -280,17 +281,21 @@ initPlayerConstraint = function () {
 
 playerShoot = function () {
 	var orientation = getPlayerOrientation();
-	area.createObject (
-		player.object.x+orientation[0], player.object.y+orientation[1], //position
-		orientation[0]*5, orientation[1]*5, //speed
-		0.1, //radius
-		"res/objects/bullet/01.json", //archetype
-		function (obj){ //run on creation successful
-			window.setTimeout (function () {
-				area.destroyObject (obj);
-			}, 1000);
-		}
-	);
+	var now = Date.now();
+	if ((now - player.shootTime) > 1000) {
+		player.shootTime = now;
+		area.createObject (
+			player.object.x+orientation[0], player.object.y+orientation[1], //position
+			orientation[0]*5, orientation[1]*5, //speed
+			0.1, //radius
+			"res/objects/bullet/01.json", //archetype
+			function (obj){ //run on creation successful
+				window.setTimeout (function () {
+					area.destroyObject (obj);
+				}, 1000);
+			}
+		);
+	}
 }
 
 playerPlantBomb = function () {
@@ -299,7 +304,7 @@ playerPlantBomb = function () {
 		player.bombPlantedTime = now;
 		var orientation = getPlayerOrientation ();
 		area.createObject (
-			player.object.x-orientation[0], player.object.y-orientation[1], //position
+			player.object.x-orientation[0]*0.6, player.object.y-orientation[1]*0.6, //position
 			0, 0, //speed
 			0.3, //radius
 			"res/objects/bomb/01.json", //archetype
