@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <head>
 	<meta charset="utf-8" />
-	<title>Referencia de mensajes cliente-servidor μ-κosmos</title>
+	<title>Mensajes cliente-servidor μ-κosmos</title>
 	<link rel="stylesheet" type="text/css" href="/shared.css" />
 	<link rel="stylesheet" type="text/css" href="/desarrolladores.css" />
 	<script src="/jquery-3.1.1.min.js"></script>
@@ -13,7 +13,10 @@
 
 	<section id="desarrolladores_section">
 	
-	<h1>Referencia de mensajes cliente-servidor</h1>
+		<h1>Mensajes cliente-servidor</h1>
+		<p>Para la comunicación entre los clientes y el servidor se utiliza el envío de mensajes asíncronos mediante la tecnología <a href="https://developer.mozilla.org/es/docs/Web/API/WebSocket">WebSocket</a></p>
+		<p>El desarrollador que utilice las librerías javascript de μ-κosmos no necesita conocer estos mensajes, ya que dichas librerías abstraen este trabajo.</p>
+		<p>Conocer el formato de estos mensajes es necesario para desarrollar implementaciones alternativas, que no utilicen las librerías javascript.</p>
 
 		<h2>Mensajes enviados por el cliente</h2>
 
