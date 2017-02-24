@@ -4,7 +4,6 @@
 	<title>μ-κosmos: MiniJuegos</title>
 	<link rel="stylesheet" type="text/css" href="shared.css" />
 	<link rel="stylesheet" type="text/css" href="minijuegos.css" />
-	<script src="index.js"></script>
 	<script src="jquery-3.1.1.min.js"></script>
 </head>
 

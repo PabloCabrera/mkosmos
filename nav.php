@@ -1,5 +1,5 @@
 	<header>
-		<img src="mkosmos-logo.svg" alt="">
+		<img src="/mkosmos-logo.svg" alt="">
 		<h1>μ-κosmos</h1>
 	</header>
 

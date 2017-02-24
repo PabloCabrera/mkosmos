@@ -3,7 +3,6 @@
 	<meta charset="utf-8" />
 	<title>μ-κosmos</title>
 	<link rel="stylesheet" type="text/css" href="shared.css" />
-	<script src="index.js"></script>
 	<script src="jquery-3.1.1.min.js"></script>
 </head>
 

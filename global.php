@@ -4,7 +4,6 @@
 	<title>μ-κosmos: Mapa del mundo</title>
 	<link rel="stylesheet" type="text/css" href="shared.css" />
 	<link rel="stylesheet" type="text/css" href="editor.css" />
-	<script src="index.js"></script>
 	<script src="jquery-3.1.1.min.js"></script>
 	<script type="application/javascript" src="config.js"></script>
 	<script type="application/javascript" src="jquery-3.1.1.min.js"></script>
