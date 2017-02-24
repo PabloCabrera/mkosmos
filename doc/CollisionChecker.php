@@ -13,7 +13,15 @@
 
 	<section id="desarrolladores_section">
 	
-		<h1>Librería javascript</h1>
+		<h1>Clase CollisionChecker</h1>
+		<p>La clase CollisionChecker es la encarga de detectar colisiones entre objetos.</p>
+		<p>Una instancia de esta clase es creada automáticamente por RemoteArea, y puede accederse a través de la propiedad collisionChecker del objeto RemoteArea</p>
+		<h4>Ejemplo</h4>
+		<code>
+			var area = new RemoteArea (...);<br>
+			area.collisionChecker.addCheck (...);
+		</code>
+		
 		<h2>Métodos de clase CollisionChecker</h2>
 
 		<h3>addCheck</h3>

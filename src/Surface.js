@@ -18,7 +18,7 @@
 
 Surface = {
 	WATER: 0,
-	SWALLOW: 6,
+	SHALLOW: 6,
 	MUD: 16,
 	QUICKSAND: 20,
 	GRASS: 32,
@@ -42,7 +42,7 @@ Surface = {
 
 SurfaceColor = [];
 SurfaceColor[Surface.WATER]="#44f";
-SurfaceColor[Surface.SWALLOW]="#48f";
+SurfaceColor[Surface.SHALLOW]="#48f";
 SurfaceColor[Surface.MUD]="#864";
 SurfaceColor[Surface.QUICKSAND]="#cc8";
 SurfaceColor[Surface.GRASS]="#4f4";

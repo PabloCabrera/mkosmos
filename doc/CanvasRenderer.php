@@ -13,7 +13,16 @@
 
 	<section id="desarrolladores_section">
 	
-		<h1>Librería javascript</h1>
+		<h1>Clase CanvasRenderer</h1>
+		<p>La clase CanvasRenderer es la encargada de renderizar el mundo y los personajes en un objeto Canvas de HTML.</p>
+
+		<h3>Constructor</h3>
+		<h4>Parámetros:</h4>
+		<dl>
+			<dt>area</dt> <dd class="objeto">Objeto RemoteArea que será renderizado.</dd>
+		</dl>
+
+		
 		<h2>Métodos de clase CanvasRenderer</h2>
 
 		<h3>setZoomLevel</h3>

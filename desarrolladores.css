@@ -62,3 +62,11 @@ dd.texto {
 	font-style: normal;
 	color: #a20;
 }
+
+span.surface_example {
+	width: 24px;
+	height: 12px;
+	border-radius: 8px;
+	border: 1px solid black;
+	display: inline-block;
+}

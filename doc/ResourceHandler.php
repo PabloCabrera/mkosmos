@@ -13,7 +13,14 @@
 
 	<section id="desarrolladores_section">
 	
-		<h1>Librería javascript</h1>
+		<h1>Clase ResourceHandler</h1>
+		<p>La clase ResourceHandler es la encargada de cargar y gestionar los recursos externos como imagenes y definiciones de arquetipos</p>
+		<p>Una instancia de esta clase es creada automáticamente por RemoteArea, y puede accederse a través de la propiedad resourceHandler del objeto RemoteArea</p>
+		<code>
+			var area = new RemoteArea (...);<br>
+			area.resourceHandler.preloadArchetype (...);
+		</code>
+
 		<h2>Métodos de clase ResourceHandler</h2>
 
 		<h3>preloadArchetype</h3>
